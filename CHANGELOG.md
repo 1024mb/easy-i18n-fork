@@ -4,6 +4,8 @@
 
 ## [Unreleased]
 
+## [4.8.1] - 2025-09-04
+
 ### Changed
 
 - Update dependencies
