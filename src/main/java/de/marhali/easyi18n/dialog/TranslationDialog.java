@@ -3,6 +3,7 @@ package de.marhali.easyi18n.dialog;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.DialogWrapper;
 import com.intellij.ui.components.JBScrollPane;
+import com.intellij.ui.components.JBTextArea;
 import com.intellij.ui.components.JBTextField;
 import com.intellij.util.Consumer;
 import com.intellij.util.ui.FormBuilder;
@@ -38,7 +39,7 @@ abstract class TranslationDialog extends DialogWrapper {
     protected final @NotNull Translation origin;
 
     protected final JTextField keyField;
-    protected final Map<String, JTextField> localeValueFields;
+    protected final Map<String, JTextArea> localeValueFields;
 
     private final Set<Consumer<TranslationUpdate>> callbacks;
 
@@ -64,7 +65,12 @@ abstract class TranslationDialog extends DialogWrapper {
         this.localeValueFields = new HashMap<>();
 
         for(String locale : InstanceManager.get(project).store().getData().getLocales()) {
-            localeValueFields.put(locale, new JBTextField(value != null ? value.get(locale) : null));
+            var field = new JBTextArea(value != null ? value.get(locale) : null, 1, 1);
+            field.setLineWrap(true);
+            field.setWrapStyleWord(true);
+            field.setBorder(BorderFactory.createTitledBorder(locale));
+
+            localeValueFields.put(locale, field);
         }
     }
 
@@ -114,7 +120,7 @@ abstract class TranslationDialog extends DialogWrapper {
 
         TranslationValue value = new TranslationValue();
 
-        for(Map.Entry<String, JTextField> entry : localeValueFields.entrySet()) {
+        for(Map.Entry<String, JTextArea> entry : localeValueFields.entrySet()) {
             value.put(entry.getKey(), entry.getValue().getText());
         }
 
@@ -136,8 +142,8 @@ abstract class TranslationDialog extends DialogWrapper {
     private JComponent createLocalesPanel() {
         FormBuilder builder = FormBuilder.createFormBuilder();
 
-        for(Map.Entry<String, JTextField> localeEntry : localeValueFields.entrySet()) {
-            builder.addLabeledComponent(localeEntry.getKey(), localeEntry.getValue(), 6, true);
+        for(Map.Entry<String, JTextArea> localeEntry : localeValueFields.entrySet()) {
+            builder.addComponent(localeEntry.getValue(), 6);
         }
 
         JScrollPane scrollPane = new JBScrollPane(builder.getPanel());

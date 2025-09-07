@@ -6,6 +6,12 @@
 
 ### Changed
 
+- Use textarea component for translation dialog locale values (#477)
+
+## [4.8.1] - 2025-09-04
+
+### Changed
+
 - Update dependencies
 
 ## [4.8.0] - 2025-04-25
