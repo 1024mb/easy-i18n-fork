@@ -70,6 +70,15 @@ public class ProjectSettingsState implements ProjectSettings {
     @Property
     private NamingConvention caseFormat;
 
+    @Property
+    private int dialogWidth;
+
+    @Property
+    private int dialogHeight;
+
+    @Property
+    private Boolean rememberDialogSize;
+
     public ProjectSettingsState() {
         this(new DefaultPreset());
     }
@@ -97,6 +106,10 @@ public class ProjectSettingsState implements ProjectSettings {
         this.alwaysFold = defaults.isAlwaysFold();
         this.flavorTemplate = defaults.getFlavorTemplate();
         this.caseFormat = defaults.getCaseFormat();
+
+        this.dialogWidth = defaults.getDialogWidth();
+        this.dialogHeight = defaults.getDialogHeight();
+        this.rememberDialogSize = defaults.isRememberDialogSize();
     }
 
     @Override
@@ -253,6 +266,35 @@ public class ProjectSettingsState implements ProjectSettings {
         this.caseFormat = caseFormat;
     }
 
+    @Override
+    public int getDialogWidth() {
+        return dialogWidth;
+    }
+
+    @Override
+    public void setDialogWidth(int width) {
+        this.dialogWidth = width;
+    }
+
+    @Override
+    public int getDialogHeight() {
+        return dialogHeight;
+    }
+
+    @Override
+    public void setDialogHeight(int height) {
+        this.dialogHeight = height;
+    }
+
+    @Override
+    public boolean isRememberDialogSize() {
+        return rememberDialogSize;
+    }
+
+    public void setRememberDialogSize(Boolean remember) {
+        this.rememberDialogSize = remember;
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -262,6 +304,8 @@ public class ProjectSettingsState implements ProjectSettings {
         return sorting == that.sorting
                 && folderStrategy == that.folderStrategy
                 && parserStrategy == that.parserStrategy
+                && dialogWidth == that.dialogWidth
+                && dialogHeight == that.dialogHeight
                 && Objects.equals(localesDirectory, that.localesDirectory)
                 && Objects.equals(filePattern, that.filePattern)
                 && Objects.equals(includeSubDirs, that.includeSubDirs)
@@ -275,7 +319,8 @@ public class ProjectSettingsState implements ProjectSettings {
                 && Objects.equals(assistance, that.assistance)
                 && Objects.equals(alwaysFold, that.alwaysFold)
                 && Objects.equals(flavorTemplate, that.flavorTemplate)
-                && Objects.equals(caseFormat, that.caseFormat);
+                && Objects.equals(caseFormat, that.caseFormat)
+                && Objects.equals(rememberDialogSize, that.rememberDialogSize);
     }
 
     @Override
@@ -283,7 +328,8 @@ public class ProjectSettingsState implements ProjectSettings {
         return Objects.hash(
                 localesDirectory, folderStrategy, parserStrategy, filePattern, includeSubDirs,
                 sorting, namespaceDelimiter, sectionDelimiter, contextDelimiter, pluralDelimiter,
-                defaultNamespace, previewLocale, nestedKeys, assistance, alwaysFold, flavorTemplate, caseFormat
+                defaultNamespace, previewLocale, nestedKeys, assistance, alwaysFold, flavorTemplate,
+                caseFormat, dialogWidth, dialogHeight, rememberDialogSize
         );
     }
 
@@ -307,6 +353,9 @@ public class ProjectSettingsState implements ProjectSettings {
                 ", alwaysFold=" + alwaysFold +
                 ", flavorTemplate=" + flavorTemplate +
                 ", caseFormat=" + caseFormat.toString() +
+                ", dialogWidth=" + dialogWidth +
+                ", dialogHeight=" + dialogHeight +
+                ", rememberDialogSize=" + rememberDialogSize +
                 '}';
     }
 }

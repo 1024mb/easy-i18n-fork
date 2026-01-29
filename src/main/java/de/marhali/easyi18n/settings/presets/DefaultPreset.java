@@ -96,4 +96,29 @@ public class DefaultPreset implements ProjectSettings {
     public @NotNull NamingConvention getCaseFormat() {
         return NamingConvention.CAMEL_CASE;
     }
+
+    @Override
+    public int getDialogWidth() {
+        return 640;
+    }
+
+    @Override
+    public void setDialogWidth(int width) {
+        // no-op for preset
+    }
+
+    @Override
+    public int getDialogHeight() {
+        return 360;
+    }
+
+    @Override
+    public void setDialogHeight(int height) {
+        // no-op for preset
+    }
+
+    @Override
+    public boolean isRememberDialogSize() {
+        return true;
+    }
 }

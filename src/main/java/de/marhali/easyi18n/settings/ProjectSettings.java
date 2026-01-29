@@ -60,4 +60,14 @@ public interface ProjectSettings {
 
     @NotNull
     NamingConvention getCaseFormat();
+
+    int getDialogWidth();
+
+    void setDialogWidth(int width);
+
+    int getDialogHeight();
+
+    void setDialogHeight(int height);
+
+    boolean isRememberDialogSize();
 }

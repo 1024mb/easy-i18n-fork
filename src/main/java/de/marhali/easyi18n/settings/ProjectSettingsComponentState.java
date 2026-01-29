@@ -45,6 +45,8 @@ public class ProjectSettingsComponentState {
     protected JTextField flavorTemplate;
     protected ComboBox<String> KeyCaseFormater;
 
+    protected JCheckBox rememberDialogSize;
+
     protected ProjectSettingsState getState() {
         // Every field needs to provide its state
         ProjectSettingsState state = new ProjectSettingsState();
@@ -73,6 +75,8 @@ public class ProjectSettingsComponentState {
 
         state.setCaseFormat(NamingConvention.fromString(KeyCaseFormater.getSelectedItem().toString()));
 
+        state.setRememberDialogSize(rememberDialogSize.isSelected());
+
         return state;
     }
 
@@ -99,6 +103,8 @@ public class ProjectSettingsComponentState {
         alwaysFold.setSelected(state.isAlwaysFold());
         flavorTemplate.setText(state.getFlavorTemplate());
         KeyCaseFormater.setSelectedItem(state.getCaseFormat().getName());
+
+        rememberDialogSize.setSelected(state.isRememberDialogSize());
     }
 
 }

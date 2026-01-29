@@ -128,11 +128,35 @@ abstract class TranslationDialog extends DialogWrapper {
     }
 
     @Override
+    public void dispose() {
+        if (settings.isRememberDialogSize()) {
+            Dimension size = getSize();
+            settings.setDialogWidth(size.width);
+            settings.setDialogHeight(size.height);
+        }
+
+        super.dispose();
+    }
+
+    @Override
     protected @Nullable JComponent createCenterPanel() {
         JPanel panel = FormBuilder.createFormBuilder()
                 .addLabeledComponent(bundle.getString("translation.key"), keyField, true)
                 .addComponent(createLocalesPanel(), 12)
                 .getPanel();
+
+        if (settings.isRememberDialogSize()) {
+            int width = settings.getDialogWidth();
+            int height = settings.getDialogHeight();
+
+            if (width > 0 && height > 0) {
+                panel.setPreferredSize(new Dimension(width, height));
+            } else {
+                panel.setPreferredSize(new Dimension(640, 360));
+            }
+        } else {
+            panel.setPreferredSize(new Dimension(640, 360));
+        }
 
         panel.setMinimumSize(new Dimension(200, 150));
 

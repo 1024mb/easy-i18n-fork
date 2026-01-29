@@ -63,6 +63,8 @@ public class ProjectSettingsComponent extends ProjectSettingsComponentState {
                 .addVerticalGap(12)
                 .addComponent(constructNestedKeysField())
                 .addComponent(constructAssistanceField())
+                .addVerticalGap(12)
+                .addComponent(constructRememberDialogSize())
                 .addVerticalGap(24)
                 .addComponent(new TitledSeparator(bundle.getString("settings.experimental.title")))
                 .addComponent(constructAlwaysFoldField())
@@ -235,6 +237,12 @@ public class ProjectSettingsComponent extends ProjectSettingsComponentState {
         KeyCaseFormater.setToolTipText(bundle.getString("settings.experimental.key-naming-format.tooltip"));
         KeyCaseFormater.setMinimumAndPreferredWidth(200);
         return KeyCaseFormater;
+    }
+
+    private JComponent constructRememberDialogSize() {
+        rememberDialogSize = new JBCheckBox(bundle.getString("settings.editor.remember-size.title"));
+        rememberDialogSize.setToolTipText(bundle.getString("settings.editor.remember-size.tooltip"));
+        return rememberDialogSize;
     }
 
 
