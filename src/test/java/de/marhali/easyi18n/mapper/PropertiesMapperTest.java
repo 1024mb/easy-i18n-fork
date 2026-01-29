@@ -10,7 +10,7 @@ import de.marhali.easyi18n.model.TranslationData;
 import de.marhali.easyi18n.settings.ProjectSettings;
 import de.marhali.easyi18n.settings.presets.NamingConvention;
 import de.marhali.easyi18n.util.KeyPathConverter;
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.junit.Assert;

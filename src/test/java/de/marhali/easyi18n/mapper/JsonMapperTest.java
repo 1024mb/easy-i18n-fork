@@ -6,7 +6,7 @@ import de.marhali.easyi18n.io.parser.json.JsonArrayMapper;
 import de.marhali.easyi18n.io.parser.json.JsonMapper;
 import de.marhali.easyi18n.model.KeyPath;
 import de.marhali.easyi18n.model.TranslationData;
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.junit.Assert;
 
 import java.util.Arrays;

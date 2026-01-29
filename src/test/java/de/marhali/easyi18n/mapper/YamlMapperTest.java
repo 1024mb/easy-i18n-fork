@@ -4,7 +4,7 @@ import de.marhali.easyi18n.io.parser.yaml.YamlArrayMapper;
 import de.marhali.easyi18n.io.parser.yaml.YamlMapper;
 import de.marhali.easyi18n.model.KeyPath;
 import de.marhali.easyi18n.model.TranslationData;
-import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.text.StringEscapeUtils;
 import org.junit.Assert;
 
 import java.util.*;
