@@ -49,6 +49,10 @@ public class PropertiesMapper {
                 String simpleKey = converter.toString(key);
                 String content = translation.get(locale);
 
+                if (content == null || content.isBlank()) {
+                    continue;
+                }
+
                 if(PropertiesArrayMapper.isArray(content)) {
                     properties.put(simpleKey, PropertiesArrayMapper.write(content));
                 } else if(NumberUtils.isCreatable(content)) {

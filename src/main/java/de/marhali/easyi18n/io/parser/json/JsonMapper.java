@@ -58,7 +58,7 @@ public class JsonMapper {
                 TranslationValue translation = childNode.getValue();
                 String content = translation.get(locale);
 
-                if(content != null) {
+                if (content != null && !content.isBlank()) {
                     if(JsonArrayMapper.isArray(content)) {
                         json.add(key, JsonArrayMapper.write(content));
                     } else if(NumberUtils.isCreatable(content)) {
