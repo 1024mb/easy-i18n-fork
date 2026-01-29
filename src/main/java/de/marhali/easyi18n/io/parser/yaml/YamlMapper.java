@@ -50,7 +50,7 @@ public class YamlMapper {
                 TranslationValue translation = childNode.getValue();
                 String content = translation.get(locale);
 
-                if(content != null) {
+                if (content != null && !content.isBlank()) {
                     if(YamlArrayMapper.isArray(content)) {
                         section.put(key, YamlArrayMapper.write(content));
                     } else if(NumberUtils.isCreatable(content)) {

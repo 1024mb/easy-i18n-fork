@@ -22,7 +22,9 @@ public class TranslationValue {
 
     public TranslationValue(@NotNull String locale, @NotNull String content) {
         this();
-        localeValues.put(locale, content);
+        if (!content.isBlank()) {
+            localeValues.put(locale, content);
+        }
     }
 
     public Set<Map.Entry<String, String>> getEntries() {
@@ -42,7 +44,9 @@ public class TranslationValue {
     }
 
     public void put(@NotNull String locale, @NotNull String content) {
-        this.localeValues.put(locale, content);
+        if (!content.isBlank()) {
+            this.localeValues.put(locale, content);
+        }
     }
 
     public void remove(@NotNull String locale) {

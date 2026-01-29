@@ -56,7 +56,7 @@ public class Json5Mapper {
             } else {
                 TranslationValue translation = childNode.getValue();
                 String content = translation.get(locale);
-                if(content != null) {
+                if (content != null && !content.isBlank()) {
                     if(Json5ArrayMapper.isArray(content)) {
                         json.add(key, Json5ArrayMapper.write(content));
                     } else if(StringUtil.isHexString(content)) {
