@@ -1,17 +1,19 @@
 package de.marhali.easyi18n;
 
+import de.marhali.easyi18n.model.KeyPath;
 import de.marhali.easyi18n.model.TranslationData;
 import de.marhali.easyi18n.model.TranslationNode;
-
-import de.marhali.easyi18n.model.KeyPath;
 import de.marhali.easyi18n.model.TranslationValue;
 import org.junit.Assert;
 import org.junit.Test;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 /**
  * Unit tests for {@link TranslationData} in combination with {@link TranslationNode}
+ *
  * @author marhali
  */
 public class TranslationDataTest {
@@ -122,8 +124,8 @@ public class TranslationDataTest {
         data.setTranslation(new KeyPath("foxtrot", "super", "long", "key"), null);
 
         Assert.assertNull(data.getTranslation(new KeyPath("foxtrot.super.long.key")));
-        Assert.assertNull(data.getRootNode().getChildren().get("foxtrot"));
-        Assert.assertEquals(data.getFullKeys().size(), numOfTranslations  - 2);
+        Assert.assertNull(data.rootNode().getChildren().get("foxtrot"));
+        Assert.assertEquals(data.getFullKeys().size(), numOfTranslations - 2);
     }
 
     @Test

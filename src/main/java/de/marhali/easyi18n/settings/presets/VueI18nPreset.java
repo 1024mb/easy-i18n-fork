@@ -1,13 +1,14 @@
 package de.marhali.easyi18n.settings.presets;
 
-import de.marhali.easyi18n.io.parser.ParserStrategyType;
 import de.marhali.easyi18n.io.folder.FolderStrategyType;
+import de.marhali.easyi18n.io.parser.ParserStrategyType;
 import de.marhali.easyi18n.settings.ProjectSettings;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
  * Preset for Vue.js - vue-i18n
+ *
  * @author marhali
  */
 public class VueI18nPreset implements ProjectSettings {

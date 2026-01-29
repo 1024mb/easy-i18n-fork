@@ -7,6 +7,7 @@ import de.marhali.easyi18n.io.parser.yaml.YamlParserStrategy;
 
 /**
  * Represents all supported file parser strategies.
+ *
  * @author marhali
  */
 public enum ParserStrategyType {
@@ -21,6 +22,10 @@ public enum ParserStrategyType {
 
     ParserStrategyType(Class<? extends ParserStrategy> strategy) {
         this.strategy = strategy;
+    }
+
+    public static ParserStrategyType fromIndex(int index) {
+        return values()[index];
     }
 
     public Class<? extends ParserStrategy> getStrategy() {
@@ -38,8 +43,8 @@ public enum ParserStrategyType {
     public int toIndex() {
         int index = 0;
 
-        for(ParserStrategyType strategy : values()) {
-            if(strategy == this) {
+        for (ParserStrategyType strategy : values()) {
+            if (strategy == this) {
                 return index;
             }
 
@@ -47,9 +52,5 @@ public enum ParserStrategyType {
         }
 
         throw new NullPointerException();
-    }
-
-    public static ParserStrategyType fromIndex(int index) {
-        return values()[index];
     }
 }

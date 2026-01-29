@@ -7,9 +7,7 @@ import com.intellij.openapi.vfs.AsyncFileListener;
 import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.vfs.newvfs.events.VFileEvent;
-
 import de.marhali.easyi18n.InstanceManager;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -19,6 +17,7 @@ import java.util.List;
 /**
  * Listens for file changes inside configured @localesPath. See {@link AsyncFileListener}.
  * Will trigger the reload function of the i18n instance if a relevant file was changed.
+ *
  * @author marhali
  */
 public class FileChangeListener implements AsyncFileListener {
@@ -34,10 +33,10 @@ public class FileChangeListener implements AsyncFileListener {
     }
 
     public void updateLocalesPath(@Nullable String localesPath) {
-        if(localesPath != null && !localesPath.isEmpty()) {
+        if (localesPath != null && !localesPath.isEmpty()) {
             VirtualFile file = LocalFileSystem.getInstance().findFileByIoFile(new File(localesPath));
 
-            if(file != null && file.isDirectory()) {
+            if (file != null && file.isDirectory()) {
                 this.localesPath = file.getPath();
                 return;
             }
@@ -51,9 +50,9 @@ public class FileChangeListener implements AsyncFileListener {
         return new ChangeApplier() {
             @Override
             public void afterVfsChange() {
-                if(localesPath != null) {
+                if (localesPath != null) {
                     events.forEach((e) -> {
-                        if(e.getPath().contains(localesPath)) { // Perform reload
+                        if (e.getPath().contains(localesPath)) { // Perform reload
                             logger.debug("Detected file change. Reloading instance...");
                             ApplicationManager.getApplication().invokeLater(() ->
                                     InstanceManager.get(project).reload()

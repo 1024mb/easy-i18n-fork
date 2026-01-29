@@ -7,6 +7,7 @@ import de.marhali.easyi18n.io.parser.ParserStrategyType;
 
 /**
  * End-to-end tests for single directory .properties files.
+ *
  * @author marhali
  */
 public class SinglePropertiesTest extends EndToEndTestCase {

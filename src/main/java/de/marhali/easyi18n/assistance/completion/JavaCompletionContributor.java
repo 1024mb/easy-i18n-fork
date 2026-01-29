@@ -7,6 +7,7 @@ import com.intellij.psi.PsiLiteralExpression;
 
 /**
  * Java specific completion contributor.
+ *
  * @author marhali
  */
 public class JavaCompletionContributor extends CompletionContributor {

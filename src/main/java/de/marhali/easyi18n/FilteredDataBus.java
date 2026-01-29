@@ -1,7 +1,6 @@
 package de.marhali.easyi18n;
 
 import com.intellij.openapi.project.Project;
-
 import de.marhali.easyi18n.model.*;
 import de.marhali.easyi18n.model.bus.BusListener;
 import de.marhali.easyi18n.model.bus.ExpandAllListener;
@@ -9,7 +8,6 @@ import de.marhali.easyi18n.model.bus.FilteredBusListener;
 import de.marhali.easyi18n.settings.ProjectSettingsService;
 import de.marhali.easyi18n.settings.ProjectSettingsState;
 import de.marhali.easyi18n.util.TranslationUtil;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -20,6 +18,7 @@ import java.util.function.Consumer;
 /**
  * UI related eventbus. Uses the {@link BusListener} by {@link DataBus} under the hood.
  * User-Interface components (e.g. tabs) use this component by implementing {@link FilteredBusListener}.
+ *
  * @author marhali
  */
 public class FilteredDataBus implements BusListener {
@@ -36,6 +35,7 @@ public class FilteredDataBus implements BusListener {
 
     /**
      * Constructs a new project specific UI eventbus.
+     *
      * @param project Associated project
      */
     public FilteredDataBus(@NotNull Project project) {
@@ -45,6 +45,7 @@ public class FilteredDataBus implements BusListener {
 
     /**
      * Adds a participant to the event bus. Every participant needs to be added manually.
+     *
      * @param listener Bus listener
      */
     public void addListener(FilteredBusListener listener) {
@@ -93,7 +94,7 @@ public class FilteredDataBus implements BusListener {
      */
     private void processAndPropagate() {
         TranslationData shadow = new TranslationData(
-                this.data.getLocales(), new TranslationNode(this.data.isSorting()));
+                this.data.locales(), new TranslationNode(this.data.isSorting()));
 
         for (KeyPath key : this.data.getFullKeys()) {
             TranslationValue value = this.data.getTranslation(key);
@@ -104,24 +105,24 @@ public class FilteredDataBus implements BusListener {
             shadow.setTranslation(key, value);
 
             // filter incomplete translations
-            if(filterIncomplete) {
-                if(!TranslationUtil.isIncomplete(value, this.data)) {
+            if (filterIncomplete) {
+                if (!TranslationUtil.isIncomplete(value, this.data)) {
                     shadow.setTranslation(key, null);
                     continue;
                 }
             }
 
             // filter duplicate values
-            if(filterDuplicate) {
-                if(!TranslationUtil.hasDuplicates(new Translation(key, value), this.data)) {
+            if (filterDuplicate) {
+                if (!TranslationUtil.hasDuplicates(new Translation(key, value), this.data)) {
                     shadow.setTranslation(key, null);
                     continue;
                 }
             }
 
             // full-text-search
-            if(searchQuery != null) {
-                if(!TranslationUtil.isSearched(settings, new Translation(key, value), searchQuery)) {
+            if (searchQuery != null) {
+                if (!TranslationUtil.isSearched(settings, new Translation(key, value), searchQuery)) {
                     shadow.setTranslation(key, null);
                     //continue;
                 }
@@ -131,7 +132,7 @@ public class FilteredDataBus implements BusListener {
         fire(li -> {
             li.onUpdateData(shadow);
 
-            if(focusKey != null) {
+            if (focusKey != null) {
                 li.onFocusKey(focusKey);
             }
         });

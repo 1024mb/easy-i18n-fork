@@ -10,6 +10,7 @@ import java.util.Set;
 
 /**
  * Similar to {@link DefaultTableCellRenderer} but will mark the first column red if any column is empty.
+ *
  * @author marhali
  */
 public class TableRenderer extends DefaultTableCellRenderer {
@@ -21,13 +22,13 @@ public class TableRenderer extends DefaultTableCellRenderer {
         // Always reset color
         component.setForeground(null);
 
-        if(column != 0) {
+        if (column != 0) {
             return component;
         }
 
-        if(missesValues(row, table)) {
+        if (missesValues(row, table)) {
             component.setForeground(JBColor.RED);
-        } else if(hasDuplicates(row, table)) {
+        } else if (hasDuplicates(row, table)) {
             component.setForeground(JBColor.ORANGE);
         }
 
@@ -37,10 +38,10 @@ public class TableRenderer extends DefaultTableCellRenderer {
     private boolean missesValues(int row, JTable table) {
         int columns = table.getColumnCount();
 
-        for(int i = 1; i < columns; i++) {
+        for (int i = 1; i < columns; i++) {
             Object value = table.getValueAt(row, i);
 
-            if(value == null || value.toString().isEmpty()) {
+            if (value == null || value.toString().isEmpty()) {
                 return true;
             }
         }
@@ -53,17 +54,17 @@ public class TableRenderer extends DefaultTableCellRenderer {
         int rows = table.getRowCount();
 
         Set<String> contents = new HashSet<>();
-        for(int column = 1; column < columns; column++) {
+        for (int column = 1; column < columns; column++) {
             contents.add(String.valueOf(table.getValueAt(checkRow, column)));
         }
 
-        for(int row = 1; row < rows; row++) {
-            if(row == checkRow) {
+        for (int row = 1; row < rows; row++) {
+            if (row == checkRow) {
                 continue;
             }
 
-            for(int column = 1; column < columns; column++) {
-                if(contents.contains(String.valueOf(table.getValueAt(row, column)))) {
+            for (int column = 1; column < columns; column++) {
+                if (contents.contains(String.valueOf(table.getValueAt(row, column)))) {
                     return true;
                 }
             }

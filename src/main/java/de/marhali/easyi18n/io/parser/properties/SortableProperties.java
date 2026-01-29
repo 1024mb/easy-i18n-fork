@@ -1,7 +1,6 @@
 package de.marhali.easyi18n.io.parser.properties;
 
 import de.marhali.easyi18n.util.IntelliJBufferedWriter;
-
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
@@ -11,6 +10,7 @@ import java.util.*;
 
 /**
  * Extends {@link Properties} class to support sorted or non-sorted keys.
+ *
  * @author marhali
  */
 public class SortableProperties extends Properties {
@@ -58,7 +58,7 @@ public class SortableProperties extends Properties {
     }
 
     public void store(Writer writer) throws IOException {
-        try(IntelliJBufferedWriter bw = new IntelliJBufferedWriter(writer)) {
+        try (IntelliJBufferedWriter bw = new IntelliJBufferedWriter(writer)) {
             boolean escUnicode = false;
 
             synchronized (this) {
@@ -91,40 +91,50 @@ public class SortableProperties extends Properties {
             bufLen = Integer.MAX_VALUE;
         }
         StringBuilder outBuffer = new StringBuilder(bufLen);
-        for(int x=0; x<len; x++) {
+        for (int x = 0; x < len; x++) {
             char aChar = theString.charAt(x);
             // Handle common case first, selecting largest block that
             // avoids the specials below
             if ((aChar > 61) && (aChar < 127)) {
                 if (aChar == '\\') {
-                    outBuffer.append('\\'); outBuffer.append('\\');
+                    outBuffer.append('\\');
+                    outBuffer.append('\\');
                     continue;
                 }
                 outBuffer.append(aChar);
                 continue;
             }
-            switch(aChar) {
+            switch (aChar) {
                 case ' ':
                     if (x == 0 || escapeSpace)
                         outBuffer.append('\\');
                     outBuffer.append(' ');
                     break;
-                case '\t':outBuffer.append('\\'); outBuffer.append('t');
+                case '\t':
+                    outBuffer.append('\\');
+                    outBuffer.append('t');
                     break;
-                case '\n':outBuffer.append('\\'); outBuffer.append('n');
+                case '\n':
+                    outBuffer.append('\\');
+                    outBuffer.append('n');
                     break;
-                case '\r':outBuffer.append('\\'); outBuffer.append('r');
+                case '\r':
+                    outBuffer.append('\\');
+                    outBuffer.append('r');
                     break;
-                case '\f':outBuffer.append('\\'); outBuffer.append('f');
+                case '\f':
+                    outBuffer.append('\\');
+                    outBuffer.append('f');
                     break;
                 case '=': // Fall through
                 case ':': // Fall through
                 case '#': // Fall through
                 case '!':
-                    outBuffer.append('\\'); outBuffer.append(aChar);
+                    outBuffer.append('\\');
+                    outBuffer.append(aChar);
                     break;
                 default:
-                    if (((aChar < 0x0020) || (aChar > 0x007e)) & escapeUnicode ) {
+                    if (((aChar < 0x0020) || (aChar > 0x007e)) & escapeUnicode) {
                         outBuffer.append("\\u");
                         outBuffer.append(Integer.toHexString(aChar));
                     } else {

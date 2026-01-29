@@ -1,19 +1,20 @@
 package de.marhali.easyi18n.assistance.intention;
 
 import com.intellij.openapi.util.TextRange;
-import com.intellij.psi.*;
-
+import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiLiteralExpression;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
  * Java specific translation intention.
+ *
  * @author marhali
  */
 public class JavaTranslationIntention extends AbstractTranslationIntention {
     @Override
     protected @Nullable String extractText(@NotNull PsiElement element) {
-        if(!(element.getParent() instanceof PsiLiteralExpression)) {
+        if (!(element.getParent() instanceof PsiLiteralExpression)) {
             return null;
         }
 

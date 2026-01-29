@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 
 /**
  * Action to expand the entire tree (open all nodes with children).
+ *
  * @author marhali
  */
 public class ExpandTreeViewAction extends AnAction {

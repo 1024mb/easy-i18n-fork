@@ -7,6 +7,7 @@ import com.intellij.psi.impl.source.xml.XmlAttributeValueImpl;
 
 /**
  * Xml specific completion contributor.
+ *
  * @author adeptius
  */
 public class XmlCompletionContributor extends CompletionContributor {

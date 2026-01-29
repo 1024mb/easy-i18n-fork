@@ -1,6 +1,8 @@
 package de.marhali.easyi18n.util;
 
-import com.intellij.notification.*;
+import com.intellij.notification.Notification;
+import com.intellij.notification.NotificationType;
+import com.intellij.notification.Notifications;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import de.marhali.easyi18n.action.OpenFileAction;
@@ -15,6 +17,7 @@ import java.util.ResourceBundle;
 
 /**
  * Utility tool to support creating notifications with detailed information like exception traces.
+ *
  * @author marhali
  */
 public class NotificationHelper {
@@ -39,7 +42,7 @@ public class NotificationHelper {
                 NotificationType.ERROR
         );
 
-        notification.addAction(new OpenFileAction(ex.getFile().getVirtualFile(), false));
+        notification.addAction(new OpenFileAction(ex.getFile().virtualFile(), false));
         notification.addAction(new SettingsAction(false));
 
         Notifications.Bus.notify(notification, project);

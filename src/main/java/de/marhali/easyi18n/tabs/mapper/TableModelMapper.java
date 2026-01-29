@@ -1,12 +1,11 @@
 package de.marhali.easyi18n.tabs.mapper;
 
-import de.marhali.easyi18n.model.TranslationData;
-import de.marhali.easyi18n.model.action.TranslationUpdate;
 import de.marhali.easyi18n.model.KeyPath;
 import de.marhali.easyi18n.model.Translation;
+import de.marhali.easyi18n.model.TranslationData;
 import de.marhali.easyi18n.model.TranslationValue;
+import de.marhali.easyi18n.model.action.TranslationUpdate;
 import de.marhali.easyi18n.util.KeyPathConverter;
-
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
 
@@ -18,6 +17,7 @@ import java.util.function.Consumer;
 
 /**
  * Mapping {@link TranslationData} to {@link TableModel}.
+ *
  * @author marhali
  */
 public class TableModelMapper implements TableModel {
@@ -35,7 +35,7 @@ public class TableModelMapper implements TableModel {
         this.data = data;
         this.converter = converter;
 
-        this.locales = new ArrayList<>(data.getLocales());
+        this.locales = new ArrayList<>(data.locales());
         this.fullKeys = new ArrayList<>(data.getFullKeys());
 
         this.updater = updater;
@@ -54,7 +54,7 @@ public class TableModelMapper implements TableModel {
     @Nls
     @Override
     public String getColumnName(int columnIndex) {
-        if(columnIndex == 0) {
+        if (columnIndex == 0) {
             return "<html><b>Key</b></html>";
         }
 
@@ -75,11 +75,11 @@ public class TableModelMapper implements TableModel {
     public Object getValueAt(int rowIndex, int columnIndex) {
         KeyPath key = this.fullKeys.get(rowIndex);
 
-        if(columnIndex == 0) { // Keys
+        if (columnIndex == 0) { // Keys
             return this.converter.toString(key);
         }
 
-        String locale = this.locales.get(columnIndex -  1);
+        String locale = this.locales.get(columnIndex - 1);
         TranslationValue value = this.data.getTranslation(key);
 
         return value == null ? null : value.get(locale);
@@ -90,15 +90,15 @@ public class TableModelMapper implements TableModel {
         KeyPath key = this.fullKeys.get(rowIndex);
         TranslationValue translation = this.data.getTranslation(key);
 
-        if(translation == null) { // Unknown cell
+        if (translation == null) { // Unknown cell
             return;
         }
 
         KeyPath newKey = columnIndex == 0 ? this.converter.fromString(String.valueOf(aValue)) : key;
 
         // Translation content update
-        if(columnIndex > 0) {
-            if(aValue == null || ((String) aValue).isEmpty()) {
+        if (columnIndex > 0) {
+            if (aValue == null || ((String) aValue).isEmpty()) {
                 translation.remove(this.locales.get(columnIndex - 1));
             } else {
                 translation.put(this.locales.get(columnIndex - 1), String.valueOf(aValue));
@@ -112,8 +112,10 @@ public class TableModelMapper implements TableModel {
     }
 
     @Override
-    public void addTableModelListener(TableModelListener l) {}
+    public void addTableModelListener(TableModelListener l) {
+    }
 
     @Override
-    public void removeTableModelListener(TableModelListener l) {}
+    public void removeTableModelListener(TableModelListener l) {
+    }
 }

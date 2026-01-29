@@ -5,7 +5,6 @@ import com.intellij.lang.javascript.psi.JSLiteralExpression;
 import com.intellij.openapi.util.Pair;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.util.PsiTreeUtil;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -14,6 +13,7 @@ import java.util.stream.Collectors;
 
 /**
  * JavaScript specific translation key folding.
+ *
  * @author marhali
  */
 public class JsFoldingBuilder extends AbstractFoldingBuilder {

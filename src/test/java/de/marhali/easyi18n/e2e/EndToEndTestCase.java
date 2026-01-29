@@ -1,12 +1,10 @@
 package de.marhali.easyi18n.e2e;
 
 import com.intellij.testFramework.fixtures.BasePlatformTestCase;
-
 import de.marhali.easyi18n.InstanceManager;
 import de.marhali.easyi18n.settings.ProjectSettings;
 import de.marhali.easyi18n.settings.ProjectSettingsService;
 import de.marhali.easyi18n.settings.ProjectSettingsState;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.IOFileFilter;
 import org.apache.commons.io.filefilter.TrueFileFilter;
@@ -51,7 +49,8 @@ public abstract class EndToEndTestCase extends BasePlatformTestCase {
 
     public void testParseAndSerialize() throws IOException {
         // Read translation files based on the provided settings
-        InstanceManager.get(getProject()).store().loadFromPersistenceLayer(success -> {});
+        InstanceManager.get(getProject()).store().loadFromPersistenceLayer(success -> {
+        });
 
         // Save the cached translation data to a temporary output directory
         ProjectSettingsState out = new ProjectSettingsState(settings);

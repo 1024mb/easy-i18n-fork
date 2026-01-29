@@ -1,11 +1,9 @@
 package de.marhali.easyi18n.settings;
 
 import com.intellij.util.xmlb.annotations.Property;
-
-import de.marhali.easyi18n.io.parser.ParserStrategyType;
 import de.marhali.easyi18n.io.folder.FolderStrategyType;
+import de.marhali.easyi18n.io.parser.ParserStrategyType;
 import de.marhali.easyi18n.settings.presets.DefaultPreset;
-
 import de.marhali.easyi18n.settings.presets.NamingConvention;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -104,9 +102,17 @@ public class ProjectSettingsState implements ProjectSettings {
         return localesDirectory;
     }
 
+    public void setLocalesDirectory(String localesDirectory) {
+        this.localesDirectory = localesDirectory;
+    }
+
     @Override
     public @NotNull FolderStrategyType getFolderStrategy() {
         return folderStrategy;
+    }
+
+    public void setFolderStrategy(FolderStrategyType folderStrategy) {
+        this.folderStrategy = folderStrategy;
     }
 
     @Override
@@ -114,9 +120,17 @@ public class ProjectSettingsState implements ProjectSettings {
         return parserStrategy;
     }
 
+    public void setParserStrategy(ParserStrategyType parserStrategy) {
+        this.parserStrategy = parserStrategy;
+    }
+
     @Override
     public @NotNull String getFilePattern() {
         return filePattern;
+    }
+
+    public void setFilePattern(String filePattern) {
+        this.filePattern = filePattern;
     }
 
     @Override
@@ -124,9 +138,17 @@ public class ProjectSettingsState implements ProjectSettings {
         return includeSubDirs;
     }
 
+    public void setIncludeSubDirs(Boolean includeSubDirs) {
+        this.includeSubDirs = includeSubDirs;
+    }
+
     @Override
     public boolean isSorting() {
         return sorting;
+    }
+
+    public void setSorting(Boolean sorting) {
+        this.sorting = sorting;
     }
 
     @Override
@@ -134,9 +156,17 @@ public class ProjectSettingsState implements ProjectSettings {
         return namespaceDelimiter;
     }
 
+    public void setNamespaceDelimiter(String namespaceDelimiter) {
+        this.namespaceDelimiter = namespaceDelimiter;
+    }
+
     @Override
     public @NotNull String getSectionDelimiter() {
         return sectionDelimiter;
+    }
+
+    public void setSectionDelimiter(String sectionDelimiter) {
+        this.sectionDelimiter = sectionDelimiter;
     }
 
     @Override
@@ -144,9 +174,17 @@ public class ProjectSettingsState implements ProjectSettings {
         return contextDelimiter;
     }
 
+    public void setContextDelimiter(String contextDelimiter) {
+        this.contextDelimiter = contextDelimiter;
+    }
+
     @Override
     public @Nullable String getPluralDelimiter() {
         return pluralDelimiter;
+    }
+
+    public void setPluralDelimiter(String pluralDelimiter) {
+        this.pluralDelimiter = pluralDelimiter;
     }
 
     @Nullable
@@ -155,9 +193,17 @@ public class ProjectSettingsState implements ProjectSettings {
         return defaultNamespace;
     }
 
+    public void setDefaultNamespace(String defaultNamespace) {
+        this.defaultNamespace = defaultNamespace;
+    }
+
     @Override
     public @NotNull String getPreviewLocale() {
         return previewLocale;
+    }
+
+    public void setPreviewLocale(String previewLocale) {
+        this.previewLocale = previewLocale;
     }
 
     @Override
@@ -165,9 +211,17 @@ public class ProjectSettingsState implements ProjectSettings {
         return nestedKeys;
     }
 
+    public void setNestedKeys(Boolean nestedKeys) {
+        this.nestedKeys = nestedKeys;
+    }
+
     @Override
     public boolean isAssistance() {
         return assistance;
+    }
+
+    public void setAssistance(Boolean assistance) {
+        this.assistance = assistance;
     }
 
     @Override
@@ -175,78 +229,22 @@ public class ProjectSettingsState implements ProjectSettings {
         return alwaysFold;
     }
 
+    public void setAlwaysFold(Boolean alwaysFold) {
+        this.alwaysFold = alwaysFold;
+    }
+
     @Override
     public String getFlavorTemplate() {
         return this.flavorTemplate;
     }
 
+    public void setFlavorTemplate(String flavorTemplate) {
+        this.flavorTemplate = flavorTemplate;
+    }
+
     @Override
     public @NotNull NamingConvention getCaseFormat() {
         return this.caseFormat;
-    }
-
-    public void setLocalesDirectory(String localesDirectory) {
-        this.localesDirectory = localesDirectory;
-    }
-
-    public void setFolderStrategy(FolderStrategyType folderStrategy) {
-        this.folderStrategy = folderStrategy;
-    }
-
-    public void setParserStrategy(ParserStrategyType parserStrategy) {
-        this.parserStrategy = parserStrategy;
-    }
-
-    public void setFilePattern(String filePattern) {
-        this.filePattern = filePattern;
-    }
-
-    public void setIncludeSubDirs(Boolean includeSubDirs) {
-        this.includeSubDirs = includeSubDirs;
-    }
-
-    public void setSorting(Boolean sorting) {
-        this.sorting = sorting;
-    }
-
-    public void setNamespaceDelimiter(String namespaceDelimiter) {
-        this.namespaceDelimiter = namespaceDelimiter;
-    }
-
-    public void setSectionDelimiter(String sectionDelimiter) {
-        this.sectionDelimiter = sectionDelimiter;
-    }
-
-    public void setContextDelimiter(String contextDelimiter) {
-        this.contextDelimiter = contextDelimiter;
-    }
-
-    public void setPluralDelimiter(String pluralDelimiter) {
-        this.pluralDelimiter = pluralDelimiter;
-    }
-
-    public void setDefaultNamespace(String defaultNamespace) {
-        this.defaultNamespace = defaultNamespace;
-    }
-
-    public void setPreviewLocale(String previewLocale) {
-        this.previewLocale = previewLocale;
-    }
-
-    public void setNestedKeys(Boolean nestedKeys) {
-        this.nestedKeys = nestedKeys;
-    }
-
-    public void setAssistance(Boolean assistance) {
-        this.assistance = assistance;
-    }
-
-    public void setAlwaysFold(Boolean alwaysFold) {
-        this.alwaysFold = alwaysFold;
-    }
-
-    public void setFlavorTemplate(String flavorTemplate) {
-        this.flavorTemplate = flavorTemplate;
     }
 
     public void setCaseFormat(NamingConvention caseFormat) {

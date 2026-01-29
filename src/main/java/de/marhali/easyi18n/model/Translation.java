@@ -15,7 +15,8 @@ public class Translation {
 
     /**
      * Constructs a new translation instance.
-     * @param key Absolute key path
+     *
+     * @param key   Absolute key path
      * @param value Values to set - nullable to indicate removal
      */
     public Translation(@NotNull KeyPath key, @Nullable TranslationValue value) {

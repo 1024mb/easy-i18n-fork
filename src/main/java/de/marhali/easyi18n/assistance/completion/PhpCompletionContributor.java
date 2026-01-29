@@ -7,6 +7,7 @@ import com.jetbrains.php.lang.psi.elements.StringLiteralExpression;
 
 /**
  * Php specific completion contributor.
+ *
  * @author marhali
  */
 public class PhpCompletionContributor extends CompletionContributor {

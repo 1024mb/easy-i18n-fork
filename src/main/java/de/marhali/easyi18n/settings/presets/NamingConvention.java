@@ -16,22 +16,8 @@ public enum NamingConvention {
 
     private final String name;
 
-    private NamingConvention(String name) {
+    NamingConvention(String name) {
         this.name = name;
-    }
-
-    /**
-     * Retrieves the name of the current instance of the class.
-     *
-     * @return the name of the current instance
-     */
-    public String getName() {
-        return this.name;
-    }
-
-    @Override
-    public String toString() {
-        return super.name().toLowerCase();
     }
 
     /**
@@ -88,5 +74,19 @@ public enum NamingConvention {
 
     static private String formatToSnakeCase(String key, boolean capitalized) {
         return CaseFormat.LOWER_UNDERSCORE.to(capitalized ? CaseFormat.UPPER_UNDERSCORE : CaseFormat.LOWER_UNDERSCORE, key);
+    }
+
+    /**
+     * Retrieves the name of the current instance of the class.
+     *
+     * @return the name of the current instance
+     */
+    public String getName() {
+        return this.name;
+    }
+
+    @Override
+    public String toString() {
+        return super.name().toLowerCase();
     }
 }

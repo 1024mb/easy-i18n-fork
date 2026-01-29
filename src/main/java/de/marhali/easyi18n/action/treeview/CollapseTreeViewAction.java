@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 
 /**
  * Action to collapse all tree nodes with children.
+ *
  * @author marhali
  */
 public class CollapseTreeViewAction extends AnAction {

@@ -12,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * JavaScript specific translation-key reference binding.
+ *
  * @author marhali
  */
 public class JsKeyReferenceContributor extends AbstractKeyReferenceContributor {

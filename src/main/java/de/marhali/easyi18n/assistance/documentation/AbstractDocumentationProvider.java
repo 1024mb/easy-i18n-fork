@@ -3,7 +3,6 @@ package de.marhali.easyi18n.assistance.documentation;
 import com.intellij.lang.documentation.DocumentationMarkup;
 import com.intellij.lang.documentation.DocumentationProvider;
 import com.intellij.openapi.project.Project;
-
 import de.marhali.easyi18n.InstanceManager;
 import de.marhali.easyi18n.assistance.OptionalAssistance;
 import de.marhali.easyi18n.model.KeyPath;
@@ -12,7 +11,6 @@ import de.marhali.easyi18n.model.TranslationNode;
 import de.marhali.easyi18n.settings.ProjectSettings;
 import de.marhali.easyi18n.settings.ProjectSettingsService;
 import de.marhali.easyi18n.util.KeyPathConverter;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -23,6 +21,7 @@ import java.util.ResourceBundle;
 
 /**
  * Provides locale values as documentation for translation keys.
+ *
  * @author marhali
  */
 abstract class AbstractDocumentationProvider implements DocumentationProvider, OptionalAssistance {
@@ -31,12 +30,13 @@ abstract class AbstractDocumentationProvider implements DocumentationProvider, O
 
     /**
      * Checks if the provided key is a valid translation-key and generates the equivalent documentation for it.
+     *
      * @param project Opened project
-     * @param key Designated translation key
+     * @param key     Designated translation key
      * @return Generated documentation or null if not responsible
      */
     protected @Nullable String generateDoc(@NotNull Project project, @Nullable String key) {
-        if(key == null || !isAssistance(project)) {
+        if (key == null || !isAssistance(project)) {
             return null;
         }
 
@@ -47,17 +47,17 @@ abstract class AbstractDocumentationProvider implements DocumentationProvider, O
         // So we want to take care of context and pluralization here
         // we should check the last key section for plural / context delims and if so provide all leafs within the last node
 
-        if(path.isEmpty()) {
+        if (path.isEmpty()) {
             return null;
         }
 
         TranslationData data = InstanceManager.get(project).store().getData();
         String leaf = path.remove(path.size() - 1);
-        TranslationNode leafNode = data.getRootNode();
+        TranslationNode leafNode = data.rootNode();
 
-        for(String section : path) {
+        for (String section : path) {
             leafNode = leafNode.getChildren().get(section);
-            if(leafNode == null) { // Cannot resolve last node before leaf
+            if (leafNode == null) { // Cannot resolve last node before leaf
                 return null;
             }
         }
@@ -66,18 +66,18 @@ abstract class AbstractDocumentationProvider implements DocumentationProvider, O
 
         // Filter results for matching leafs (contextual and pluralization support)
         for (Map.Entry<String, TranslationNode> entry : leafNode.getChildren().entrySet()) {
-            if(entry.getKey().startsWith(leaf) && entry.getValue().isLeaf()) {
+            if (entry.getKey().startsWith(leaf) && entry.getValue().isLeaf()) {
                 results.put(entry.getKey(), entry.getValue().getValue().get(settings.getPreviewLocale()));
             }
         }
 
-        if(results.isEmpty()) { // No results to show
+        if (results.isEmpty()) { // No results to show
             return null;
         }
 
         StringBuilder builder = new StringBuilder();
 
-        if(results.size() == 1) { // Single value
+        if (results.size() == 1) { // Single value
             builder.append(DocumentationMarkup.CONTENT_START);
             builder.append("<strong>").append(results.values().toArray()[0]).append("</strong>");
             builder.append(DocumentationMarkup.CONTENT_END);
@@ -103,6 +103,6 @@ abstract class AbstractDocumentationProvider implements DocumentationProvider, O
         builder.append(excerpt);
         builder.append(DocumentationMarkup.GRAYED_END).append(DocumentationMarkup.CONTENT_END);
 
-        return  builder.toString();
+        return builder.toString();
     }
 }

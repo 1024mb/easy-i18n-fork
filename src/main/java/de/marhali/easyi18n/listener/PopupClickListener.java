@@ -7,6 +7,7 @@ import java.util.function.Consumer;
 /**
  * Popup click listener for awt {@link MouseListener}.
  * Emits consumer defined in constructor on popup open action.
+ *
  * @author marhali
  */
 public class PopupClickListener implements MouseListener {
@@ -18,25 +19,28 @@ public class PopupClickListener implements MouseListener {
     }
 
     @Override
-    public void mouseClicked(MouseEvent e) {}
+    public void mouseClicked(MouseEvent e) {
+    }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        if(e.isPopupTrigger()) {
+        if (e.isPopupTrigger()) {
             this.callback.accept(e);
         }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        if(e.isPopupTrigger()) {
+        if (e.isPopupTrigger()) {
             this.callback.accept(e);
         }
     }
 
     @Override
-    public void mouseEntered(MouseEvent e) {}
+    public void mouseEntered(MouseEvent e) {
+    }
 
     @Override
-    public void mouseExited(MouseEvent e) {}
+    public void mouseExited(MouseEvent e) {
+    }
 }

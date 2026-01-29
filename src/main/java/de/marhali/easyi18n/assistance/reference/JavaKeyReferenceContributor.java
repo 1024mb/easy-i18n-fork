@@ -3,14 +3,12 @@ package de.marhali.easyi18n.assistance.reference;
 import com.intellij.openapi.project.Project;
 import com.intellij.patterns.PlatformPatterns;
 import com.intellij.psi.*;
-
-
 import com.intellij.util.ProcessingContext;
-
 import org.jetbrains.annotations.NotNull;
 
 /**
  * Java specific key reference binding.
+ *
  * @author marhali
  */
 public class JavaKeyReferenceContributor extends AbstractKeyReferenceContributor {

@@ -10,6 +10,7 @@ import java.util.Set;
 
 /**
  * Represents the set values behind a specific translation.
+ *
  * @author marhali
  */
 public class TranslationValue {

@@ -7,6 +7,7 @@ import com.intellij.patterns.PlatformPatterns;
 
 /**
  * JavaScript specific completion contributor.
+ *
  * @author marhali
  */
 public class JsCompletionContributor extends CompletionContributor {

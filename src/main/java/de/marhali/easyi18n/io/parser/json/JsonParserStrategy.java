@@ -3,15 +3,14 @@ package de.marhali.easyi18n.io.parser.json;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-
 import com.google.gson.JsonSyntaxException;
 import com.intellij.openapi.vfs.VirtualFile;
-
 import de.marhali.easyi18n.exception.SyntaxException;
 import de.marhali.easyi18n.io.parser.ParserStrategy;
-import de.marhali.easyi18n.model.*;
+import de.marhali.easyi18n.model.TranslationData;
+import de.marhali.easyi18n.model.TranslationFile;
+import de.marhali.easyi18n.model.TranslationNode;
 import de.marhali.easyi18n.settings.ProjectSettings;
-
 import org.jetbrains.annotations.NotNull;
 
 import java.io.InputStreamReader;
@@ -20,6 +19,7 @@ import java.util.Objects;
 
 /**
  * Json file format parser strategy.
+ *
  * @author marhali
  */
 public class JsonParserStrategy extends ParserStrategy {
@@ -32,12 +32,12 @@ public class JsonParserStrategy extends ParserStrategy {
 
     @Override
     public void read(@NotNull TranslationFile file, @NotNull TranslationData data) throws Exception {
-        data.addLocale(file.getLocale());
+        data.addLocale(file.locale());
 
-        VirtualFile vf = file.getVirtualFile();
+        VirtualFile vf = file.virtualFile();
         TranslationNode targetNode = super.getOrCreateTargetNode(file, data);
 
-        try(Reader reader = new InputStreamReader(vf.getInputStream(), vf.getCharset())) {
+        try (Reader reader = new InputStreamReader(vf.getInputStream(), vf.getCharset())) {
             JsonObject input;
 
             try {
@@ -46,8 +46,8 @@ public class JsonParserStrategy extends ParserStrategy {
                 throw new SyntaxException(ex.getMessage(), file);
             }
 
-            if(input != null) { // @input is null if file is completely empty
-                JsonMapper.read(file.getLocale(), input, targetNode);
+            if (input != null) { // @input is null if file is completely empty
+                JsonMapper.read(file.locale(), input, targetNode);
             }
         }
     }
@@ -57,7 +57,7 @@ public class JsonParserStrategy extends ParserStrategy {
         TranslationNode targetNode = super.getTargetNode(data, file);
 
         JsonObject output = new JsonObject();
-        JsonMapper.write(file.getLocale(), output, Objects.requireNonNull(targetNode));
+        JsonMapper.write(file.locale(), output, Objects.requireNonNull(targetNode));
 
         return GSON.toJson(output);
     }

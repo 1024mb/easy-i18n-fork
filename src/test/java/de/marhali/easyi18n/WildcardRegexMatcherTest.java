@@ -1,12 +1,12 @@
 package de.marhali.easyi18n;
 
 import de.marhali.easyi18n.util.WildcardRegexMatcher;
-
 import org.junit.Assert;
 import org.junit.Test;
 
 /**
  * Unit tests for {@link WildcardRegexMatcher}.
+ *
  * @author marhali
  */
 public class WildcardRegexMatcherTest extends WildcardRegexMatcher {

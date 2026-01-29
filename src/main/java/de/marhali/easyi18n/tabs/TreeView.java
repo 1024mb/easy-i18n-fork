@@ -7,25 +7,23 @@ import com.intellij.openapi.actionSystem.DefaultActionGroup;
 import com.intellij.openapi.project.Project;
 import com.intellij.ui.components.JBScrollPane;
 import com.intellij.ui.treeStructure.Tree;
-
 import de.marhali.easyi18n.InstanceManager;
-import de.marhali.easyi18n.dialog.EditDialog;
-import de.marhali.easyi18n.listener.ReturnKeyListener;
-import de.marhali.easyi18n.model.TranslationData;
-import de.marhali.easyi18n.model.action.TranslationDelete;
 import de.marhali.easyi18n.action.treeview.CollapseTreeViewAction;
 import de.marhali.easyi18n.action.treeview.ExpandTreeViewAction;
+import de.marhali.easyi18n.dialog.EditDialog;
 import de.marhali.easyi18n.listener.DeleteKeyListener;
 import de.marhali.easyi18n.listener.PopupClickListener;
+import de.marhali.easyi18n.listener.ReturnKeyListener;
 import de.marhali.easyi18n.model.KeyPath;
 import de.marhali.easyi18n.model.Translation;
+import de.marhali.easyi18n.model.TranslationData;
 import de.marhali.easyi18n.model.TranslationValue;
+import de.marhali.easyi18n.model.action.TranslationDelete;
 import de.marhali.easyi18n.model.bus.FilteredBusListener;
-import de.marhali.easyi18n.tabs.renderer.TreeRenderer;
 import de.marhali.easyi18n.settings.ProjectSettingsService;
 import de.marhali.easyi18n.tabs.mapper.TreeModelMapper;
+import de.marhali.easyi18n.tabs.renderer.TreeRenderer;
 import de.marhali.easyi18n.util.TreeUtil;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -36,6 +34,7 @@ import java.util.*;
 
 /**
  * Show translation state as tree.
+ *
  * @author marhali
  */
 public class TreeView implements FilteredBusListener {
@@ -91,8 +90,8 @@ public class TreeView implements FilteredBusListener {
     private List<Integer> getExpandedRows() {
         List<Integer> expanded = new ArrayList<>();
 
-        for(int i = 0; i < tree.getRowCount(); i++) {
-            if(tree.isExpanded(i)) {
+        for (int i = 0; i < tree.getRowCount(); i++) {
+            if (tree.isExpanded(i)) {
                 expanded.add(i);
             }
         }
@@ -139,7 +138,7 @@ public class TreeView implements FilteredBusListener {
         TreePath[] selection = tree.getSelectionPaths();
         Set<KeyPath> batchDelete = new HashSet<>();
 
-        if(selection == null) {
+        if (selection == null) {
             return;
         }
 

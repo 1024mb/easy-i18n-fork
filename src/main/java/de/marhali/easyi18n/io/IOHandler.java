@@ -7,7 +7,6 @@ import com.intellij.openapi.fileEditor.FileDocumentManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.openapi.vfs.VirtualFile;
-
 import com.intellij.psi.PsiDocumentManager;
 import com.intellij.psi.PsiFile;
 import de.marhali.easyi18n.exception.EmptyLocalesDirException;
@@ -15,8 +14,8 @@ import de.marhali.easyi18n.exception.SyntaxException;
 import de.marhali.easyi18n.io.folder.FolderStrategy;
 import de.marhali.easyi18n.io.parser.ParserStrategy;
 import de.marhali.easyi18n.io.parser.ParserStrategyType;
-import de.marhali.easyi18n.model.*;
-
+import de.marhali.easyi18n.model.TranslationData;
+import de.marhali.easyi18n.model.TranslationFile;
 import de.marhali.easyi18n.settings.ProjectSettings;
 import de.marhali.easyi18n.util.NotificationHelper;
 import org.jetbrains.annotations.NotNull;
@@ -27,6 +26,7 @@ import java.util.List;
 
 /**
  * Central component for IO operations based on the configured strategies.
+ *
  * @author marhali
  */
 public class IOHandler {
@@ -54,6 +54,7 @@ public class IOHandler {
     /**
      * Reads translation files from the local project into our data structure. <br>
      * <b>Note:</b> This method needs to be called from a Read-Action-Context (see ApplicationManager)
+     *
      * @return Translation data based on the configured strategies
      * @throws IOException Could not read translation data
      */
@@ -61,25 +62,25 @@ public class IOHandler {
         String localesPath = PathMacroManager.getInstance(project)
                 .expandPath(this.settings.getLocalesDirectory());
 
-        if(localesPath == null || localesPath.isEmpty()) {
+        if (localesPath == null || localesPath.isEmpty()) {
             throw new EmptyLocalesDirException("Locales path must not be empty");
         }
 
         VirtualFile localesDirectory = LocalFileSystem.getInstance().findFileByIoFile(new File(localesPath));
 
-        if(localesDirectory == null || !localesDirectory.isDirectory()) {
+        if (localesDirectory == null || !localesDirectory.isDirectory()) {
             throw new IllegalArgumentException("Specified locales path is invalid (" + localesPath + ")");
         }
 
         TranslationData data = new TranslationData(this.settings.isSorting());
         List<TranslationFile> translationFiles = this.folderStrategy.analyzeFolderStructure(localesDirectory);
 
-        for(TranslationFile file : translationFiles) {
+        for (TranslationFile file : translationFiles) {
             try {
                 this.parserStrategy.read(file, data);
             } catch (SyntaxException ex) {
                 NotificationHelper.createBadSyntaxNotification(project, ex);
-            } catch(Exception ex) {
+            } catch (Exception ex) {
                 throw new IOException(file + "\n\n" + ex.getMessage(), ex);
             }
         }
@@ -90,29 +91,30 @@ public class IOHandler {
     /**
      * Writes the provided translation data to the local project files <br>
      * <b>Note:</b> This method must be called from a Write-Action-Context (see ApplicationManager)
+     *
      * @param data Cached translation data to save
      * @throws IOException Write action failed
      */
     public void write(@NotNull TranslationData data) throws IOException {
         String localesPath = this.settings.getLocalesDirectory();
 
-        if(localesPath == null || localesPath.isEmpty()) {
+        if (localesPath == null || localesPath.isEmpty()) {
             throw new EmptyLocalesDirException("Locales path must not be empty");
         }
 
         List<TranslationFile> translationFiles =
                 this.folderStrategy.constructFolderStructure(localesPath, this.parserStrategyType, data);
 
-        for(TranslationFile file : translationFiles) {
+        for (TranslationFile file : translationFiles) {
             try {
                 String content = this.parserStrategy.write(data, file);
 
-                if(content == null) {
+                if (content == null) {
                     // We should consider deleting the target translation file if it has no content
                     continue;
                 }
 
-                Document document = FileDocumentManager.getInstance().getDocument(file.getVirtualFile());
+                Document document = FileDocumentManager.getInstance().getDocument(file.virtualFile());
                 assert document != null;
 
                 // content must use \n line separators (internal intellij guideline)
@@ -120,7 +122,7 @@ public class IOHandler {
 
                 PsiFile psi = PsiDocumentManager.getInstance(project).getCachedPsiFile(document);
 
-                if(psi == null) {
+                if (psi == null) {
                     psi = PsiDocumentManager.getInstance(project).getPsiFile(document);
                 }
 

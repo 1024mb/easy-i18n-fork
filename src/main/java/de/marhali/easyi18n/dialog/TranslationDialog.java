@@ -7,7 +7,6 @@ import com.intellij.ui.components.JBTextArea;
 import com.intellij.ui.components.JBTextField;
 import com.intellij.util.Consumer;
 import com.intellij.util.ui.FormBuilder;
-
 import de.marhali.easyi18n.InstanceManager;
 import de.marhali.easyi18n.model.KeyPath;
 import de.marhali.easyi18n.model.Translation;
@@ -16,7 +15,6 @@ import de.marhali.easyi18n.model.action.TranslationUpdate;
 import de.marhali.easyi18n.settings.ProjectSettings;
 import de.marhali.easyi18n.settings.ProjectSettingsService;
 import de.marhali.easyi18n.util.KeyPathConverter;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -27,6 +25,7 @@ import java.util.*;
 
 /**
  * Base for add and edit translation dialogs.
+ *
  * @author marhali
  */
 abstract class TranslationDialog extends DialogWrapper {
@@ -45,8 +44,9 @@ abstract class TranslationDialog extends DialogWrapper {
 
     /**
      * Constructs a new translation dialog.
+     *
      * @param project Opened project
-     * @param origin Prefill translation
+     * @param origin  Prefill translation
      */
     protected TranslationDialog(@NotNull Project project, @NotNull Translation origin) {
         super(project);
@@ -64,7 +64,7 @@ abstract class TranslationDialog extends DialogWrapper {
         this.keyField = new JBTextField(converter.toString(origin.getKey()));
         this.localeValueFields = new HashMap<>();
 
-        for(String locale : InstanceManager.get(project).store().getData().getLocales()) {
+        for (String locale : InstanceManager.get(project).store().getData().locales()) {
             var field = new JBTextArea(value != null ? value.get(locale) : null, 1, 1);
             field.setLineWrap(true);
             field.setWrapStyleWord(true);
@@ -81,6 +81,7 @@ abstract class TranslationDialog extends DialogWrapper {
     /**
      * Registers a callback that is called on dialog close with the final state.
      * If the user aborts the dialog no callback is called.
+     *
      * @param callback Callback to register
      */
     public void registerCallback(Consumer<TranslationUpdate> callback) {
@@ -89,6 +90,7 @@ abstract class TranslationDialog extends DialogWrapper {
 
     /**
      * Implementation needs to handle exit
+     *
      * @param exitCode See {@link com.intellij.openapi.ui.DialogWrapper} for exit codes
      * @return update conclusion, null if aborted
      */
@@ -105,7 +107,7 @@ abstract class TranslationDialog extends DialogWrapper {
         int exitCode = getExitCode();
         TranslationUpdate update = handleExit(exitCode);
 
-        if(update != null) {
+        if (update != null) {
             InstanceManager.get(project).processUpdate(update);
             callbacks.forEach(callback -> callback.consume(update));
         }
@@ -113,6 +115,7 @@ abstract class TranslationDialog extends DialogWrapper {
 
     /**
      * Retrieve current modal state.
+     *
      * @return Translation
      */
     protected @NotNull Translation getState() {
@@ -120,7 +123,7 @@ abstract class TranslationDialog extends DialogWrapper {
 
         TranslationValue value = new TranslationValue();
 
-        for(Map.Entry<String, JTextArea> entry : localeValueFields.entrySet()) {
+        for (Map.Entry<String, JTextArea> entry : localeValueFields.entrySet()) {
             value.put(entry.getKey(), entry.getValue().getText());
         }
 
@@ -142,7 +145,7 @@ abstract class TranslationDialog extends DialogWrapper {
     private JComponent createLocalesPanel() {
         FormBuilder builder = FormBuilder.createFormBuilder();
 
-        for(Map.Entry<String, JTextArea> localeEntry : localeValueFields.entrySet()) {
+        for (Map.Entry<String, JTextArea> localeEntry : localeValueFields.entrySet()) {
             builder.addComponent(localeEntry.getValue(), 6);
         }
 

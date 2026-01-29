@@ -10,7 +10,6 @@ import com.intellij.ui.TitledSeparator;
 import com.intellij.ui.components.*;
 import com.intellij.ui.components.fields.ExtendableTextField;
 import com.intellij.util.ui.FormBuilder;
-
 import de.marhali.easyi18n.io.parser.ArrayMapper;
 import de.marhali.easyi18n.io.parser.ParserStrategyType;
 import de.marhali.easyi18n.settings.presets.NamingConvention;

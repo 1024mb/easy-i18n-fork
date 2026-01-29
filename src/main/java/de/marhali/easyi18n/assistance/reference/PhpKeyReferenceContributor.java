@@ -8,7 +8,6 @@ import com.intellij.psi.PsiReferenceProvider;
 import com.intellij.psi.PsiReferenceRegistrar;
 import com.intellij.util.ProcessingContext;
 import com.jetbrains.php.lang.psi.elements.StringLiteralExpression;
-
 import org.jetbrains.annotations.NotNull;
 
 /**

@@ -20,18 +20,14 @@ import java.util.*;
  *     login: 'Login'
  * }
  * </pre>
+ *
  * @author marhali
  */
-public class TranslationData {
-
-    @NotNull
-    private final Set<String> locales;
-
-    @NotNull
-    private final TranslationNode rootNode;
+public record TranslationData(@NotNull Set<String> locales, @NotNull TranslationNode rootNode) {
 
     /**
      * Creates an empty instance.
+     *
      * @param sort Should the translation keys be sorted alphabetically
      */
     public TranslationData(boolean sort) {
@@ -39,18 +35,17 @@ public class TranslationData {
     }
 
     /**
-     * @param locales Languages which can be used for translation
+     * @param locales  Languages which can be used for translation
      * @param rootNode Translation tree structure
      */
-    public TranslationData(@NotNull Set<String> locales, @NotNull TranslationNode rootNode) {
-        this.locales = locales;
-        this.rootNode = rootNode;
+    public TranslationData {
     }
 
     /**
      * @return Set of languages which can receive translations
      */
-    public @NotNull Set<String> getLocales() {
+    @Override
+    public @NotNull Set<String> locales() {
         return this.locales;
     }
 
@@ -64,7 +59,8 @@ public class TranslationData {
     /**
      * @return root node which contains all translations
      */
-    public @NotNull TranslationNode getRootNode() {
+    @Override
+    public @NotNull TranslationNode rootNode() {
         return this.rootNode;
     }
 
@@ -75,12 +71,12 @@ public class TranslationData {
     public @Nullable TranslationNode getNode(@NotNull KeyPath fullPath) {
         TranslationNode node = this.rootNode;
 
-        if(fullPath.isEmpty()) { // Return root node if empty path was supplied
+        if (fullPath.isEmpty()) { // Return root node if empty path was supplied
             return node;
         }
 
-        for(String section : fullPath) {
-            if(node == null) {
+        for (String section : fullPath) {
+            if (node == null) {
                 return null;
             }
             node = node.getChildren().get(section);
@@ -92,11 +88,11 @@ public class TranslationData {
     public @NotNull TranslationNode getOrCreateNoe(@NotNull KeyPath fullPath) {
         TranslationNode node = this.rootNode;
 
-        if(fullPath.isEmpty()) { // Return root node if empty path was supplied
+        if (fullPath.isEmpty()) { // Return root node if empty path was supplied
             return node;
         }
 
-        for(String section : fullPath) {
+        for (String section : fullPath) {
             node = node.getOrCreateChildren(section);
         }
 
@@ -110,7 +106,7 @@ public class TranslationData {
     public @Nullable TranslationValue getTranslation(@NotNull KeyPath fullPath) {
         TranslationNode node = this.getNode(fullPath);
 
-        if(node == null || !node.isLeaf()) {
+        if (node == null || !node.isLeaf()) {
             return null;
         }
 
@@ -120,11 +116,12 @@ public class TranslationData {
     /**
      * Create / Update or Delete a specific translation.
      * The parent path of the translation will be changed if necessary.
-     * @param fullPath Absolute translation key path
+     *
+     * @param fullPath    Absolute translation key path
      * @param translation Translation to set. Can be null to delete the corresponding node
      */
     public void setTranslation(@NotNull KeyPath fullPath, @Nullable TranslationValue translation) {
-        if(fullPath.isEmpty()) { // Skip empty translation keys
+        if (fullPath.isEmpty()) { // Skip empty translation keys
             return;
         }
 
@@ -132,11 +129,11 @@ public class TranslationData {
         String leafKey = fullPath.remove(fullPath.size() - 1); // Extract edge section as children key of parent
         TranslationNode node = this.rootNode;
 
-        for(String section : fullPath) { // Go to nested level at @leafKey
+        for (String section : fullPath) { // Go to nested level at @leafKey
             TranslationNode childNode = node.getChildren().get(section);
 
-            if(childNode == null) {
-                if(translation == null) { // Path must not be empty on delete
+            if (childNode == null) {
+                if (translation == null) { // Path must not be empty on delete
                     // Section already deleted / non-existent
                     return;
                 }
@@ -147,10 +144,10 @@ public class TranslationData {
             node = childNode;
         }
 
-        if(translation == null) { // Delete action
+        if (translation == null) { // Delete action
             node.removeChildren(leafKey);
 
-            if(node.getChildren().isEmpty() && !node.isRoot()) { // Node is empty now. Run delete recursively
+            if (node.getChildren().isEmpty() && !node.isRoot()) { // Node is empty now. Run delete recursively
                 this.setTranslation(fullPath, null);
             }
             return;
@@ -169,17 +166,17 @@ public class TranslationData {
 
     /**
      * @param parentPath Parent key path
-     * @param node Node section to begin with
+     * @param node       Node section to begin with
      * @return All translation keys where the path contains the specified @parentPath
      */
     public @NotNull Set<KeyPath> getFullKeys(KeyPath parentPath, TranslationNode node) {
         Set<KeyPath> keys = new LinkedHashSet<>();
 
-        if(node.isLeaf()) { // This node does not lead to child's - just add the key
+        if (node.isLeaf()) { // This node does not lead to child's - just add the key
             keys.add(parentPath);
         }
 
-        for(Map.Entry<String, TranslationNode> children : node.getChildren().entrySet()) {
+        for (Map.Entry<String, TranslationNode> children : node.getChildren().entrySet()) {
             keys.addAll(this.getFullKeys(new KeyPath(parentPath, children.getKey()), children.getValue()));
         }
 

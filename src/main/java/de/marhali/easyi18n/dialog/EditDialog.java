@@ -2,12 +2,10 @@ package de.marhali.easyi18n.dialog;
 
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.DialogWrapper;
-
 import de.marhali.easyi18n.dialog.descriptor.DeleteActionDescriptor;
+import de.marhali.easyi18n.model.Translation;
 import de.marhali.easyi18n.model.action.TranslationDelete;
 import de.marhali.easyi18n.model.action.TranslationUpdate;
-import de.marhali.easyi18n.model.Translation;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -15,14 +13,16 @@ import javax.swing.*;
 
 /**
  * Dialog to edit or delete an existing translation.
+ *
  * @author marhali
  */
 public class EditDialog extends TranslationDialog {
 
     /**
      * Constructs a new edit dialog with the provided translation
+     *
      * @param project Opened project
-     * @param origin Translation to edit
+     * @param origin  Translation to edit
      */
     public EditDialog(@NotNull Project project, @NotNull Translation origin) {
         super(project, origin);
@@ -32,7 +32,7 @@ public class EditDialog extends TranslationDialog {
 
     @Override
     protected Action @NotNull [] createLeftSideActions() {
-        return new Action[]{ new DeleteActionDescriptor(this) };
+        return new Action[]{new DeleteActionDescriptor(this)};
     }
 
     @Override

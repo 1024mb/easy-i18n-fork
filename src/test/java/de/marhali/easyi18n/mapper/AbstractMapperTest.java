@@ -1,11 +1,11 @@
 package de.marhali.easyi18n.mapper;
 
 import de.marhali.easyi18n.model.TranslationValue;
-
 import org.junit.Test;
 
 /**
  * Defines test cases for {@link de.marhali.easyi18n.model.TranslationNode} mapping.
+ *
  * @author marhali
  */
 public abstract class AbstractMapperTest {

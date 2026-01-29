@@ -2,6 +2,7 @@ package de.marhali.easyi18n.io.folder;
 
 /**
  * Represents all supported folder strategies.
+ *
  * @author marhali
  */
 public enum FolderStrategyType {
@@ -13,12 +14,16 @@ public enum FolderStrategyType {
     private final boolean namespaceMode;
 
     /**
-     * @param strategy Strategy implementation
+     * @param strategy      Strategy implementation
      * @param namespaceMode Does this strategy use namespaces?
      */
     FolderStrategyType(Class<? extends FolderStrategy> strategy, boolean namespaceMode) {
         this.strategy = strategy;
         this.namespaceMode = namespaceMode;
+    }
+
+    public static FolderStrategyType fromIndex(int index) {
+        return values()[index];
     }
 
     public Class<? extends FolderStrategy> getStrategy() {
@@ -28,8 +33,8 @@ public enum FolderStrategyType {
     public int toIndex() {
         int index = 0;
 
-        for(FolderStrategyType strategy : values()) {
-            if(strategy == this) {
+        for (FolderStrategyType strategy : values()) {
+            if (strategy == this) {
                 return index;
             }
 
@@ -41,9 +46,5 @@ public enum FolderStrategyType {
 
     public boolean isNamespaceMode() {
         return namespaceMode;
-    }
-
-    public static FolderStrategyType fromIndex(int index) {
-        return values()[index];
     }
 }

@@ -3,8 +3,7 @@ package de.marhali.easyi18n;
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Disposer;
-import com.intellij.openapi.vfs.*;
-
+import com.intellij.openapi.vfs.VirtualFileManager;
 import de.marhali.easyi18n.exception.EmptyLocalesDirException;
 import de.marhali.easyi18n.io.IOHandler;
 import de.marhali.easyi18n.model.TranslationData;
@@ -12,7 +11,6 @@ import de.marhali.easyi18n.service.FileChangeListener;
 import de.marhali.easyi18n.settings.ProjectSettings;
 import de.marhali.easyi18n.settings.ProjectSettingsService;
 import de.marhali.easyi18n.util.NotificationHelper;
-
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Consumer;
@@ -20,6 +18,7 @@ import java.util.function.Consumer;
 /**
  * Responsible for loading, saving and updating translation files.
  * Provides access to the cached translation data which is used in the whole project.
+ *
  * @author marhali
  */
 public class DataStore {
@@ -45,6 +44,7 @@ public class DataStore {
     /**
      * Loads the translation data into cache and overwrites any previous cached data.
      * If the configuration does not fit an empty translation instance will be populated.
+     *
      * @param successResult Consumer will inform if operation was successful
      */
     public void loadFromPersistenceLayer(@NotNull Consumer<Boolean> successResult) {
@@ -59,7 +59,7 @@ public class DataStore {
                 this.data = new TranslationData(settings.isSorting());
                 successResult.accept(false);
 
-                if(!(ex instanceof EmptyLocalesDirException)) {
+                if (!(ex instanceof EmptyLocalesDirException)) {
                     NotificationHelper.createIOError(settings, ex);
                 }
             }
@@ -68,6 +68,7 @@ public class DataStore {
 
     /**
      * Saves the cached translation data to the underlying io system.
+     *
      * @param successResult Consumer will inform if operation was successful
      */
     public void saveToPersistenceLayer(@NotNull Consumer<Boolean> successResult) {
@@ -81,7 +82,7 @@ public class DataStore {
             } catch (Exception ex) {
                 successResult.accept(false);
 
-                if(ex instanceof EmptyLocalesDirException) {
+                if (ex instanceof EmptyLocalesDirException) {
                     NotificationHelper.createEmptyLocalesDirNotification(project);
                 } else {
                     NotificationHelper.createIOError(settings, ex);

@@ -5,6 +5,7 @@ import de.marhali.easyi18n.settings.ProjectSettings;
 /**
  * Enumeration of all available configuration presets.
  * Every preset needs to be registered here to be properly recognized.
+ *
  * @author marhali
  */
 public enum Preset {

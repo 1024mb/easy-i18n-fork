@@ -6,7 +6,6 @@ import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.fileEditor.FileEditorManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
-
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -14,6 +13,7 @@ import java.util.ResourceBundle;
 
 /**
  * Plugin action to open a specific file.
+ *
  * @author marhali
  */
 public class OpenFileAction extends AnAction {

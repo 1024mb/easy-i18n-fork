@@ -1,12 +1,11 @@
 package de.marhali.easyi18n;
 
-import de.marhali.easyi18n.io.parser.ParserStrategyType;
 import de.marhali.easyi18n.io.folder.FolderStrategyType;
+import de.marhali.easyi18n.io.parser.ParserStrategyType;
 import de.marhali.easyi18n.model.KeyPath;
-import de.marhali.easyi18n.settings.presets.NamingConvention;
 import de.marhali.easyi18n.settings.ProjectSettings;
+import de.marhali.easyi18n.settings.presets.NamingConvention;
 import de.marhali.easyi18n.util.KeyPathConverter;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.junit.Assert;
@@ -14,6 +13,7 @@ import org.junit.Test;
 
 /**
  * Unit tests for {@link KeyPathConverter}.
+ *
  * @author marhali
  */
 public class KeyPathConverterTest {
@@ -62,7 +62,7 @@ public class KeyPathConverterTest {
 
     @Test
     public void single() {
-        KeyPathConverter converter = getConverter(FolderStrategyType.SINGLE,null, ".", null, true);
+        KeyPathConverter converter = getConverter(FolderStrategyType.SINGLE, null, ".", null, true);
 
         Assert.assertEquals("username", converter.toString(new KeyPath("username")));
         Assert.assertEquals("username.title", converter.toString(new KeyPath("username", "title")));
@@ -92,7 +92,7 @@ public class KeyPathConverterTest {
     }
 
     private KeyPathConverter getConverter(FolderStrategyType strategy, String namespaceDelim,
-                                        String sectionDelim, String defaultNs, boolean nestKeys) {
+                                          String sectionDelim, String defaultNs, boolean nestKeys) {
         return new KeyPathConverter(new ProjectSettings() {
             @Override
             public @Nullable String getLocalesDirectory() {

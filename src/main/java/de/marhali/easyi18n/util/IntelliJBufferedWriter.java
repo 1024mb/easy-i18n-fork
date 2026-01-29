@@ -9,6 +9,7 @@ import java.io.Writer;
 /**
  * IntelliJ aware BufferedWriter implementation.
  * (Document PSI uses \n as line separator)
+ *
  * @author marhali
  */
 public class IntelliJBufferedWriter extends BufferedWriter {

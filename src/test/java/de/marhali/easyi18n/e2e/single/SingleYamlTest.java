@@ -7,6 +7,7 @@ import de.marhali.easyi18n.io.parser.ParserStrategyType;
 
 /**
  * End-to-ends tests for single directory yaml files.
+ *
  * @author marhali
  */
 public class SingleYamlTest extends EndToEndTestCase {

@@ -5,13 +5,13 @@ import de.marhali.easyi18n.util.StringUtil;
 import de.marhali.json5.Json5;
 import de.marhali.json5.Json5Array;
 import de.marhali.json5.Json5Primitive;
-
 import org.apache.commons.lang3.math.NumberUtils;
 
 import java.io.IOException;
 
 /**
  * Map json5 array values.
+ *
  * @author marhali
  */
 public class Json5ArrayMapper extends ArrayMapper {
@@ -35,12 +35,12 @@ public class Json5ArrayMapper extends ArrayMapper {
         Json5Array array = new Json5Array();
 
         write(concat, (element) -> {
-            if(element.startsWith("\\")) {
+            if (element.startsWith("\\")) {
                 array.add(JSON5.parse(element.replace("\\", "")));
             } else {
-                if(StringUtil.isHexString(element)) {
+                if (StringUtil.isHexString(element)) {
                     array.add(Json5Primitive.of(element, true));
-                } else if(NumberUtils.isCreatable(element)) {
+                } else if (NumberUtils.isCreatable(element)) {
                     array.add(Json5Primitive.of(NumberUtils.createNumber(element)));
                 } else {
                     array.add(Json5Primitive.of(element));

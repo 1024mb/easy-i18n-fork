@@ -12,6 +12,7 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * Xml specific key reference binding
+ *
  * @author adeptius
  */
 public class XmlKeyReferenceContributor extends AbstractKeyReferenceContributor {

@@ -8,12 +8,13 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * Xml specific translation key intention.
+ *
  * @author adeptius
  */
 public class XmlTranslationIntention extends AbstractTranslationIntention {
     @Override
     protected @Nullable String extractText(@NotNull PsiElement element) {
-        if(!(element.getParent() instanceof XmlAttributeValue)) {
+        if (!(element.getParent() instanceof XmlAttributeValue)) {
             return null;
         }
 

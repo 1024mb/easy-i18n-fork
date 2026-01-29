@@ -4,6 +4,7 @@ import de.marhali.easyi18n.model.TranslationFile;
 
 /**
  * Indicates a syntax error in a managed translation file.
+ *
  * @author marhali
  */
 public class SyntaxException extends RuntimeException {

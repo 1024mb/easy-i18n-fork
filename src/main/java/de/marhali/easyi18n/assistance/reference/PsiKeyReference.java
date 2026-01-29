@@ -1,22 +1,20 @@
 package de.marhali.easyi18n.assistance.reference;
 
-import com.intellij.navigation.ItemPresentation;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiReferenceBase;
 import com.intellij.psi.SyntheticElement;
 import com.intellij.psi.impl.FakePsiElement;
-
 import de.marhali.easyi18n.dialog.AddDialog;
 import de.marhali.easyi18n.dialog.EditDialog;
 import de.marhali.easyi18n.model.Translation;
 import de.marhali.easyi18n.util.KeyPathConverter;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
  * References translation keys inside editor with corresponding {@link EditDialog} / {@link AddDialog}.
+ *
  * @author marhali
  */
 public class PsiKeyReference extends PsiReferenceBase<PsiElement> {

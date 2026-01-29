@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 /**
  * Php specific translation key folding.
+ *
  * @author marhali
  */
 public class PhpFoldingBuilder extends AbstractFoldingBuilder {

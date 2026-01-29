@@ -5,6 +5,7 @@ import java.awt.event.KeyListener;
 
 /**
  * Delete (DEL) keystroke listener.
+ *
  * @author marhali
  */
 public class DeleteKeyListener implements KeyListener {
@@ -17,14 +18,16 @@ public class DeleteKeyListener implements KeyListener {
 
     @Override
     public void keyTyped(KeyEvent e) {
-        if(e.getKeyChar() == KeyEvent.VK_DELETE) {
+        if (e.getKeyChar() == KeyEvent.VK_DELETE) {
             this.onActivate.run();
         }
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {}
+    public void keyPressed(KeyEvent e) {
+    }
 
     @Override
-    public void keyReleased(KeyEvent e) {}
+    public void keyReleased(KeyEvent e) {
+    }
 }

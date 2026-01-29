@@ -17,20 +17,22 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * Language specific translation key reference contributor.
+ *
  * @author marhali
  */
 abstract class AbstractKeyReferenceContributor extends PsiReferenceContributor implements OptionalAssistance {
     /**
      * Searches for relevant translation-key references
+     *
      * @param project Opened project
      * @param element Targeted element
-     * @param text Designated translation key
+     * @param text    Designated translation key
      * @return Matched translation-key reference(s)
      */
     protected @NotNull PsiReference[] getReferences(
             @NotNull Project project, @NotNull PsiElement element, @Nullable String text) {
 
-        if(text == null || text.isEmpty() || !isAssistance(project)) {
+        if (text == null || text.isEmpty() || !isAssistance(project)) {
             return PsiReference.EMPTY_ARRAY;
         }
 
@@ -42,11 +44,11 @@ abstract class AbstractKeyReferenceContributor extends PsiReferenceContributor i
         KeyPath path = converter.fromString(text);
         TranslationValue values = InstanceManager.get(project).store().getData().getTranslation(path);
 
-        if(values == null) { // We only reference valid and existing translations
+        if (values == null) { // We only reference valid and existing translations
             return PsiReference.EMPTY_ARRAY;
         }
 
-        return new PsiReference[] {
+        return new PsiReference[]{
                 new PsiKeyReference(converter, new Translation(path, values), element)
         };
     }

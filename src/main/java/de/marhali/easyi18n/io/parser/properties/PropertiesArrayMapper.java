@@ -8,6 +8,7 @@ import java.util.List;
 
 /**
  * Map for 'properties' array values.
+ *
  * @author marhali
  */
 public class PropertiesArrayMapper extends ArrayMapper {

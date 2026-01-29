@@ -2,15 +2,14 @@ package de.marhali.easyi18n.settings;
 
 import com.intellij.openapi.options.Configurable;
 import com.intellij.openapi.project.Project;
-
 import de.marhali.easyi18n.InstanceManager;
-
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 
 /**
  * IDE settings panel for this plugin
+ *
  * @author marhali
  */
 public class ProjectSettingsConfigurable implements Configurable {

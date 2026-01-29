@@ -16,6 +16,7 @@ import java.util.TreeMap;
  * Whether the children nodes should be sorted is determined by the parent node.
  * For root nodes (empty parent) the {@link java.util.Map}-Type must be specified
  * to determine which sorting should be applied.
+ *
  * @author marhali
  */
 public class TranslationNode {
@@ -24,7 +25,7 @@ public class TranslationNode {
     private TranslationNode parent;
 
     @NotNull
-    private Map<String, TranslationNode> children;
+    private final Map<String, TranslationNode> children;
 
     @NotNull
     private TranslationValue value;
@@ -35,6 +36,7 @@ public class TranslationNode {
 
     /**
      * Root node initializer. E.g. see {@link java.util.TreeMap} or {@link java.util.HashMap}
+     *
      * @param children Decide which implementation should be used (sorted, non-sorted)
      */
     public TranslationNode(@NotNull Map<String, TranslationNode> children) {
@@ -52,7 +54,7 @@ public class TranslationNode {
 
     /**
      * @return true if this node does not lead to other children nodes (just contains {@link Translation} itself).
-     *          The root node is never treated as a leaf node.
+     * The root node is never treated as a leaf node.
      */
     public boolean isLeaf() {
         return this.children.isEmpty() && !this.isRoot();
@@ -75,22 +77,22 @@ public class TranslationNode {
         return this.children;
     }
 
-    public void setChildren(@NotNull String key, @NotNull TranslationNode node) {
-        node.setParent(this); // Track parent if adding children's
-        this.value.clear();
-        this.children.put(key, node);
-    }
-
     @SuppressWarnings("unchecked")
     public @NotNull TranslationNode setChildren(@NotNull String key) {
         try {
             TranslationNode node = new TranslationNode(this.children.getClass().getDeclaredConstructor().newInstance());
             this.setChildren(key, node);
             return node;
-        } catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("Cannot create children of map type " + this.children.getClass().getSimpleName());
         }
+    }
+
+    public void setChildren(@NotNull String key, @NotNull TranslationNode node) {
+        node.setParent(this); // Track parent if adding children's
+        this.value.clear();
+        this.children.put(key, node);
     }
 
     public void setChildren(@NotNull String key, @NotNull TranslationValue translation) {
@@ -100,7 +102,7 @@ public class TranslationNode {
     public @NotNull TranslationNode getOrCreateChildren(@NotNull String key) {
         TranslationNode node = this.children.get(key);
 
-        if(node == null) {
+        if (node == null) {
             node = this.setChildren(key);
         }
 

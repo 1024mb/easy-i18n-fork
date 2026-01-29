@@ -31,6 +31,6 @@ public class DocumentUtil {
     }
 
     public boolean isVue() {
-            return fileType.getDefaultExtension().contains("vue");
+        return fileType.getDefaultExtension().contains("vue");
     }
 }

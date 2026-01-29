@@ -2,13 +2,11 @@ package de.marhali.easyi18n.io.folder;
 
 import com.intellij.openapi.vfs.LocalFileSystem;
 import com.intellij.openapi.vfs.VirtualFile;
-
 import de.marhali.easyi18n.io.parser.ParserStrategyType;
 import de.marhali.easyi18n.model.TranslationData;
 import de.marhali.easyi18n.model.TranslationFile;
 import de.marhali.easyi18n.settings.ProjectSettings;
 import de.marhali.easyi18n.util.WildcardRegexMatcher;
-
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -18,6 +16,7 @@ import java.util.Objects;
 
 /**
  * Represents a specific translation file directory structure.
+ *
  * @author marhali
  */
 public abstract class FolderStrategy {
@@ -31,6 +30,7 @@ public abstract class FolderStrategy {
     /**
      * Searches the translation folder for matching files based on the implementing strategy.
      * The provided directory is already checked as a directory and can be used to query child items.
+     *
      * @param localesDirectory Configured translation file directory
      * @return translation files which matches the strategy
      */
@@ -38,15 +38,17 @@ public abstract class FolderStrategy {
 
     /**
      * Analyzes the provided translation data and returns the directory structure based on the implementing strategy
+     *
      * @param localesPath Configured locales path
-     * @param data Translation data to use for write action
+     * @param data        Translation data to use for write action
      * @return translation file structure
      */
     public abstract @NotNull List<TranslationFile> constructFolderStructure(@NotNull String localesPath,
-            @NotNull ParserStrategyType type, @NotNull TranslationData data) throws IOException;
+                                                                            @NotNull ParserStrategyType type, @NotNull TranslationData data) throws IOException;
 
     /**
      * Checks if the provided file is not a directory and matches the configured file pattern
+     *
      * @param file File to check
      * @return true if file matches and should be processed
      */
@@ -58,7 +60,7 @@ public abstract class FolderStrategy {
     /**
      *
      * @param parent Directory path
-     * @param child File name with extension
+     * @param child  File name with extension
      * @return IntelliJ {@link VirtualFile}
      * @throws IOException Could not access file
      */
@@ -76,8 +78,9 @@ public abstract class FolderStrategy {
 
     /**
      * Checks whether a given file or directory exists
+     *
      * @param parent Parent path
-     * @param child File / Directory name
+     * @param child  File / Directory name
      * @return true if file is existing otherwise false
      */
     protected boolean exists(@NotNull String parent, @NotNull String child) {

@@ -7,6 +7,7 @@ import java.util.regex.Pattern;
 
 /**
  * String utilities
+ *
  * @author marhali, Apache Commons
  */
 public class StringUtil {
@@ -14,6 +15,7 @@ public class StringUtil {
     /**
      * Checks if the provided String represents a hexadecimal number.
      * For example: {@code 0x100...}, {@code -0x100...} and {@code +0x100...}.
+     *
      * @param string String to evaluate
      * @return true if hexadecimal string otherwise false
      */
@@ -25,7 +27,8 @@ public class StringUtil {
     /**
      * Escapes control characters for the given input string.
      * Inspired by Apache Commons (see {@link org.apache.commons.text.StringEscapeUtils}
-     * @param input The input string
+     *
+     * @param input       The input string
      * @param skipStrings Should every string literal indication ("", '') be skipped? (Needed e.g. for json)
      * @return Escaped string
      */
@@ -33,11 +36,11 @@ public class StringUtil {
         int length = input.length();
         StringWriter out = new StringWriter(length * 2);
 
-        for(int i = 0; i < length; i++) {
+        for (int i = 0; i < length; i++) {
             char ch = input.charAt(i);
 
-            if(ch < ' ') {
-                switch(ch) {
+            if (ch < ' ') {
+                switch (ch) {
                     case '\b':
                         out.write(92);
                         out.write(98);
@@ -67,15 +70,15 @@ public class StringUtil {
                         out.write(114);
                 }
             } else {
-                switch(ch) {
+                switch (ch) {
                     case '"':
-                        if(!skipStrings) {
+                        if (!skipStrings) {
                             out.write(92);
                         }
                         out.write(34);
                         break;
                     case '\'':
-                        if(!skipStrings) {
+                        if (!skipStrings) {
                             out.write(92);
                         }
                         out.write(39);

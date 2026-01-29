@@ -8,12 +8,14 @@ import javax.swing.tree.TreePath;
 
 /**
  * Swing tree utility
+ *
  * @author marhali
  */
 public class TreeUtil {
 
     /**
      * Constructs the full path for a given {@link TreePath}
+     *
      * @param treePath TreePath
      * @return Corresponding key path
      */
@@ -26,7 +28,7 @@ public class TreeUtil {
             String section = value instanceof PresentationData ?
                     ((PresentationData) value).getPresentableText() : String.valueOf(value);
 
-            if(value == null) { // Skip empty sections
+            if (value == null) { // Skip empty sections
                 continue;
             }
 

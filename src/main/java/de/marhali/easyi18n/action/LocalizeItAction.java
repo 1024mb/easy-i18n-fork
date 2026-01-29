@@ -7,13 +7,11 @@ import com.intellij.openapi.actionSystem.DataContext;
 import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
-
 import de.marhali.easyi18n.dialog.AddDialog;
 import de.marhali.easyi18n.model.KeyPath;
-import de.marhali.easyi18n.settings.presets.NamingConvention;
 import de.marhali.easyi18n.settings.ProjectSettingsService;
+import de.marhali.easyi18n.settings.presets.NamingConvention;
 import de.marhali.easyi18n.util.DocumentUtil;
-
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -84,7 +82,7 @@ class LocalizeItAction extends AnAction {
     /**
      * Converts a given key to the specified naming convention.
      *
-     * @param key the key to convert
+     * @param key     the key to convert
      * @param project the project where the key is being converted
      * @return the converted key
      */

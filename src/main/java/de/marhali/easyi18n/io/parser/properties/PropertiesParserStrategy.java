@@ -1,7 +1,6 @@
 package de.marhali.easyi18n.io.parser.properties;
 
 import com.intellij.openapi.vfs.VirtualFile;
-
 import de.marhali.easyi18n.exception.SyntaxException;
 import de.marhali.easyi18n.io.parser.ParserStrategy;
 import de.marhali.easyi18n.model.TranslationData;
@@ -9,7 +8,6 @@ import de.marhali.easyi18n.model.TranslationFile;
 import de.marhali.easyi18n.model.TranslationNode;
 import de.marhali.easyi18n.settings.ProjectSettings;
 import de.marhali.easyi18n.util.KeyPathConverter;
-
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -19,6 +17,7 @@ import java.io.StringWriter;
 
 /**
  * Properties file format parser strategy.
+ *
  * @author marhali
  */
 public class PropertiesParserStrategy extends ParserStrategy {
@@ -32,34 +31,34 @@ public class PropertiesParserStrategy extends ParserStrategy {
 
     @Override
     public void read(@NotNull TranslationFile file, @NotNull TranslationData data) throws Exception {
-        data.addLocale(file.getLocale());
+        data.addLocale(file.locale());
 
-        VirtualFile vf = file.getVirtualFile();
+        VirtualFile vf = file.virtualFile();
         TranslationNode targetNode = super.getOrCreateTargetNode(file, data);
-        TranslationData targetData = new TranslationData(data.getLocales(), targetNode);
+        TranslationData targetData = new TranslationData(data.locales(), targetNode);
 
-        try(Reader reader = new InputStreamReader(vf.getInputStream(), vf.getCharset())) {
+        try (Reader reader = new InputStreamReader(vf.getInputStream(), vf.getCharset())) {
             SortableProperties input = new SortableProperties(this.settings.isSorting());
 
             try {
                 input.load(reader);
-            } catch(IOException ex) {
+            } catch (IOException ex) {
                 throw new SyntaxException(ex.getMessage(), file);
             }
 
-            PropertiesMapper.read(file.getLocale(), input, targetData, converter);
+            PropertiesMapper.read(file.locale(), input, targetData, converter);
         }
     }
 
     @Override
     public @NotNull String write(@NotNull TranslationData data, @NotNull TranslationFile file) throws Exception {
         TranslationNode targetNode = super.getTargetNode(data, file);
-        TranslationData targetData = new TranslationData(data.getLocales(), targetNode);
+        TranslationData targetData = new TranslationData(data.locales(), targetNode);
 
         SortableProperties output = new SortableProperties(this.settings.isSorting());
-        PropertiesMapper.write(file.getLocale(), output, targetData, converter);
+        PropertiesMapper.write(file.locale(), output, targetData, converter);
 
-        try(StringWriter writer = new StringWriter()) {
+        try (StringWriter writer = new StringWriter()) {
             output.store(writer);
             return writer.toString();
         }

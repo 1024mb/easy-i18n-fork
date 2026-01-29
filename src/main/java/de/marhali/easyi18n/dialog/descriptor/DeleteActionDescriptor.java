@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 /**
  * Delete action which represents the delete button on the edit translation dialog.
  * Action can be monitored using the exit code for the opened dialog. See EXIT_CODE.
+ *
  * @author marhali
  */
 public class DeleteActionDescriptor extends AbstractAction {

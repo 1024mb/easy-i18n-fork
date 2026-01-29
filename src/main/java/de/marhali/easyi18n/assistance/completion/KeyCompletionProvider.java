@@ -8,7 +8,6 @@ import com.intellij.codeInsight.lookup.LookupElementBuilder;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.IconLoader;
 import com.intellij.util.ProcessingContext;
-
 import de.marhali.easyi18n.InstanceManager;
 import de.marhali.easyi18n.assistance.OptionalAssistance;
 import de.marhali.easyi18n.model.KeyPath;
@@ -17,7 +16,6 @@ import de.marhali.easyi18n.model.TranslationData;
 import de.marhali.easyi18n.settings.ProjectSettings;
 import de.marhali.easyi18n.settings.ProjectSettingsService;
 import de.marhali.easyi18n.util.KeyPathConverter;
-
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -25,6 +23,7 @@ import java.util.Set;
 
 /**
  * Provides existing translation keys for code completion.
+ *
  * @author marhali
  */
 class KeyCompletionProvider extends CompletionProvider<CompletionParameters> implements OptionalAssistance {
@@ -36,7 +35,7 @@ class KeyCompletionProvider extends CompletionProvider<CompletionParameters> imp
                                   @NotNull ProcessingContext context, @NotNull CompletionResultSet result) {
         Project project = parameters.getOriginalFile().getProject();
 
-        if(!isAssistance(project)) {
+        if (!isAssistance(project)) {
             return;
         }
 

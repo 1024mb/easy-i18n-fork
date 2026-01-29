@@ -1,11 +1,14 @@
 package de.marhali.easyi18n.io.parser.json;
 
-import com.google.gson.*;
-
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import de.marhali.easyi18n.io.parser.ArrayMapper;
 
 /**
  * Map json array values.
+ *
  * @author marhali
  */
 public class JsonArrayMapper extends ArrayMapper {
@@ -22,7 +25,7 @@ public class JsonArrayMapper extends ArrayMapper {
         JsonArray array = new JsonArray();
 
         write(concat, (element) -> {
-            if(element.startsWith("\\")) {
+            if (element.startsWith("\\")) {
                 array.add(GSON.fromJson(element.replace("\\", ""), JsonElement.class));
             } else {
                 array.add(element);

@@ -4,9 +4,7 @@ import com.intellij.icons.AllIcons;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.project.Project;
-
 import de.marhali.easyi18n.InstanceManager;
-
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -14,6 +12,7 @@ import java.util.ResourceBundle;
 
 /**
  * Action which toggles translation filter on missing values.
+ *
  * @author marhali
  */
 public class FilterIncompleteAction extends AnAction {

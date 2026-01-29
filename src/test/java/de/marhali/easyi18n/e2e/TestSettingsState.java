@@ -3,12 +3,12 @@ package de.marhali.easyi18n.e2e;
 import de.marhali.easyi18n.io.folder.FolderStrategyType;
 import de.marhali.easyi18n.io.parser.ParserStrategyType;
 import de.marhali.easyi18n.settings.presets.DefaultPreset;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
  * Settings base for end-to-end tests.
+ *
  * @author marhali
  */
 public class TestSettingsState extends DefaultPreset {

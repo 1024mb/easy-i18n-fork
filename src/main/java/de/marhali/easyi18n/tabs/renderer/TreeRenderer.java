@@ -11,6 +11,7 @@ import javax.swing.*;
 /**
  * Similar to {@link NodeRenderer} but will will override {@link #getPresentation(Object)} to
  * make {@link ItemPresentation} visible.
+ *
  * @author marhali
  */
 public class TreeRenderer extends NodeRenderer {
@@ -22,7 +23,7 @@ public class TreeRenderer extends NodeRenderer {
 
     @Override
     protected @Nullable ItemPresentation getPresentation(Object node) {
-        if(node instanceof ItemPresentation) {
+        if (node instanceof ItemPresentation) {
             return (ItemPresentation) node;
         } else {
             return super.getPresentation(node);

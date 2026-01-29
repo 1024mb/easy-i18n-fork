@@ -11,7 +11,6 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
 import com.intellij.util.IncorrectOperationException;
-
 import de.marhali.easyi18n.InstanceManager;
 import de.marhali.easyi18n.assistance.OptionalAssistance;
 import de.marhali.easyi18n.dialog.AddDialog;
@@ -23,7 +22,6 @@ import de.marhali.easyi18n.model.TranslationValue;
 import de.marhali.easyi18n.settings.ProjectSettings;
 import de.marhali.easyi18n.settings.ProjectSettingsService;
 import de.marhali.easyi18n.util.KeyPathConverter;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -32,6 +30,7 @@ import java.util.ResourceBundle;
 /**
  * Intention for translation related use-cases.
  * Can be used to extract (create) translations or to edit existing ones.
+ *
  * @author marhali
  */
 abstract class AbstractTranslationIntention extends BaseElementAtCaretIntentionAction implements OptionalAssistance {
@@ -60,6 +59,7 @@ abstract class AbstractTranslationIntention extends BaseElementAtCaretIntentionA
     /**
      * This is the only method a language-specific translation intention needs to implement.
      * The implementation needs to verify element type and extract the relevant key literal or value.
+     *
      * @param element Element at caret
      * @return extract translation key (not verified!) or null if intention is not applicable for this element
      */
@@ -71,13 +71,13 @@ abstract class AbstractTranslationIntention extends BaseElementAtCaretIntentionA
 
     @Override
     public boolean isAvailable(@NotNull Project project, Editor editor, @NotNull PsiElement element) {
-        if(!isAssistance(project)) {
-           return false;
+        if (!isAssistance(project)) {
+            return false;
         }
 
         String text = extractText(element);
 
-        if(text != null) {
+        if (text != null) {
             KeyPathConverter converter = new KeyPathConverter(project);
             existingTranslation = InstanceManager.get(project).store().getData()
                     .getTranslation(converter.fromString(text)) != null;
@@ -95,7 +95,7 @@ abstract class AbstractTranslationIntention extends BaseElementAtCaretIntentionA
 
         String text = extractText(element);
 
-        if(text == null) {
+        if (text == null) {
             throw new IncorrectOperationException("Cannot extract translation intention at caret");
         }
 
@@ -104,14 +104,14 @@ abstract class AbstractTranslationIntention extends BaseElementAtCaretIntentionA
         TranslationValue existingTranslation = data.getTranslation(path);
 
         // Existing translation - edit dialog
-        if(existingTranslation != null) {
+        if (existingTranslation != null) {
             new EditDialog(project, new Translation(path, existingTranslation)).showAndHandle();
             return;
         }
 
         // Extract translation by key
         // We assume that a text is a translation-key if it contains section delimiters and does not end with them
-        if(text.contains(settings.getSectionDelimiter()) && !text.endsWith(settings.getSectionDelimiter())) {
+        if (text.contains(settings.getSectionDelimiter()) && !text.endsWith(settings.getSectionDelimiter())) {
             new AddDialog(project, path, null).showAndHandle();
             return;
         }
@@ -120,7 +120,7 @@ abstract class AbstractTranslationIntention extends BaseElementAtCaretIntentionA
         AddDialog dialog = new AddDialog(project, new KeyPath(), text);
 
         dialog.registerCallback(translationUpdate -> { // Replace text at caret with chosen translation key
-            if(editor != null) {
+            if (editor != null) {
                 Document doc = editor.getDocument();
                 Caret caret = editor.getCaretModel().getPrimaryCaret();
                 TextRange range = convertRange(element.getTextRange());

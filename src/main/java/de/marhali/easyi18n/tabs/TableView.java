@@ -3,30 +3,31 @@ package de.marhali.easyi18n.tabs;
 import com.intellij.openapi.project.Project;
 import com.intellij.ui.components.JBScrollPane;
 import com.intellij.ui.table.JBTable;
-
 import de.marhali.easyi18n.InstanceManager;
 import de.marhali.easyi18n.dialog.EditDialog;
-import de.marhali.easyi18n.listener.ReturnKeyListener;
 import de.marhali.easyi18n.listener.DeleteKeyListener;
 import de.marhali.easyi18n.listener.PopupClickListener;
-import de.marhali.easyi18n.model.TranslationData;
-import de.marhali.easyi18n.model.action.TranslationDelete;
+import de.marhali.easyi18n.listener.ReturnKeyListener;
 import de.marhali.easyi18n.model.KeyPath;
 import de.marhali.easyi18n.model.Translation;
+import de.marhali.easyi18n.model.TranslationData;
 import de.marhali.easyi18n.model.TranslationValue;
+import de.marhali.easyi18n.model.action.TranslationDelete;
 import de.marhali.easyi18n.model.bus.FilteredBusListener;
-import de.marhali.easyi18n.tabs.renderer.TableRenderer;
 import de.marhali.easyi18n.tabs.mapper.TableModelMapper;
+import de.marhali.easyi18n.tabs.renderer.TableRenderer;
 import de.marhali.easyi18n.util.KeyPathConverter;
-
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.*;
+import java.util.HashSet;
+import java.util.ResourceBundle;
+import java.util.Set;
 
 /**
  * Shows translation state as table.
+ *
  * @author marhali
  */
 public class TableView implements FilteredBusListener {

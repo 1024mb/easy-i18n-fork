@@ -1,11 +1,9 @@
 package de.marhali.easyi18n.util;
 
 import com.intellij.openapi.project.Project;
-
 import de.marhali.easyi18n.model.KeyPath;
 import de.marhali.easyi18n.settings.ProjectSettings;
 import de.marhali.easyi18n.settings.ProjectSettingsService;
-
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
@@ -13,6 +11,7 @@ import java.util.regex.Pattern;
 
 /**
  * Stateful utility to transform absolute translation keys into their character literal representation and backwards.
+ *
  * @author marhali
  */
 public class KeyPathConverter {
@@ -21,6 +20,7 @@ public class KeyPathConverter {
 
     /**
      * Constructs a new converter instance
+     *
      * @param settings Delimiter configuration
      */
     public KeyPathConverter(@NotNull ProjectSettings settings) {
@@ -28,8 +28,8 @@ public class KeyPathConverter {
     }
 
     /**
-     * @see #KeyPathConverter(ProjectSettings)
      * @param project Opened project
+     * @see #KeyPathConverter(ProjectSettings)
      */
     public KeyPathConverter(@NotNull Project project) {
         this(ProjectSettingsService.get(project).getState());
@@ -37,15 +37,16 @@ public class KeyPathConverter {
 
     /**
      * Transform to character literal representation
+     *
      * @param path Absolute key path
      * @return Character literal
      */
     public @NotNull String toString(@NotNull KeyPath path) {
         StringBuilder builder = new StringBuilder();
 
-        for(int i = 0; i < path.size(); i++) {
-            if(i > 0) { // Delimiters
-                if(i == 1 && settings.getFolderStrategy().isNamespaceMode() && settings.getNamespaceDelimiter() != null) {
+        for (int i = 0; i < path.size(); i++) {
+            if (i > 0) { // Delimiters
+                if (i == 1 && settings.getFolderStrategy().isNamespaceMode() && settings.getNamespaceDelimiter() != null) {
                     builder.append(quoteDelimiter(settings.getNamespaceDelimiter()));
                 } else {
                     builder.append(quoteDelimiter(settings.getSectionDelimiter()));
@@ -62,18 +63,19 @@ public class KeyPathConverter {
     /**
      * Splits provided character literal into key path sections.
      * If namespace mode is activated and none was provided, the default namespace will be added.
+     *
      * @return Layered key path sections
      */
     public @NotNull KeyPath fromString(@NotNull String literalPath) {
         KeyPath path = new KeyPath();
 
         int i = 0;
-        for(String section : literalPath.split(getSplitRegex())) {
+        for (String section : literalPath.split(getSplitRegex())) {
 
             // Missing namespace
-            if(i == 0 && settings.getFolderStrategy().isNamespaceMode() && hasDefaultNamespace()) {
+            if (i == 0 && settings.getFolderStrategy().isNamespaceMode() && hasDefaultNamespace()) {
                 String namespaceDelim = (settings.isNestedKeys() ? "" : "\\") + settings.getNamespaceDelimiter();
-                if(section.length() == literalPath.length() || !literalPath.substring(section.length()).startsWith(namespaceDelim)) {
+                if (section.length() == literalPath.length() || !literalPath.substring(section.length()).startsWith(namespaceDelim)) {
                     path.add(settings.getDefaultNamespace());
                 }
             }
@@ -102,7 +104,7 @@ public class KeyPathConverter {
     }
 
     private String getSplitRegex() {
-       return settings.isNestedKeys()
+        return settings.isNestedKeys()
                 ? ("(?<!" + Pattern.quote("\\") + ")" + getSplitCharsRegex())
                 : Pattern.quote("\\") + getSplitCharsRegex();
     }
@@ -114,7 +116,7 @@ public class KeyPathConverter {
         builder.append(Pattern.quote(settings.getSectionDelimiter()));
 
         // Add optional namespace delimiter if present
-        if(settings.getNamespaceDelimiter() != null && !settings.getNamespaceDelimiter().isEmpty()) {
+        if (settings.getNamespaceDelimiter() != null && !settings.getNamespaceDelimiter().isEmpty()) {
             builder.append("|");
             builder.append(Pattern.quote(Objects.requireNonNull(settings.getNamespaceDelimiter())));
         }
@@ -128,11 +130,11 @@ public class KeyPathConverter {
      */
     private String quoteSection(String section) {
         String quoted = section;
-        if(!settings.isNestedKeys()) {
+        if (!settings.isNestedKeys()) {
             return quoted;
         }
 
-        if(hasDefaultNamespace()) {
+        if (hasDefaultNamespace()) {
             quoted = quoted.replace(settings.getNamespaceDelimiter(), "\\" + settings.getNamespaceDelimiter());
         }
 
@@ -142,7 +144,7 @@ public class KeyPathConverter {
 
     private String unquoteSection(String section) {
         String unquoted = section;
-        if(hasDefaultNamespace()) {
+        if (hasDefaultNamespace()) {
             unquoted = unquoted.replace("\\" + settings.getNamespaceDelimiter(), settings.getNamespaceDelimiter());
         }
 
@@ -154,6 +156,6 @@ public class KeyPathConverter {
      * Securely escape provided delimiter according to the configured policy.
      */
     private String quoteDelimiter(String delimiter) {
-        return settings.isNestedKeys() ? delimiter :  delimiter.replace(delimiter, "\\" + delimiter);
+        return settings.isNestedKeys() ? delimiter : delimiter.replace(delimiter, "\\" + delimiter);
     }
 }

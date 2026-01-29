@@ -2,9 +2,8 @@ package de.marhali.easyi18n.settings;
 
 import com.intellij.openapi.ui.ComboBox;
 import com.intellij.openapi.ui.TextFieldWithBrowseButton;
-
-import de.marhali.easyi18n.io.parser.ParserStrategyType;
 import de.marhali.easyi18n.io.folder.FolderStrategyType;
+import de.marhali.easyi18n.io.parser.ParserStrategyType;
 import de.marhali.easyi18n.settings.presets.NamingConvention;
 import de.marhali.easyi18n.settings.presets.Preset;
 

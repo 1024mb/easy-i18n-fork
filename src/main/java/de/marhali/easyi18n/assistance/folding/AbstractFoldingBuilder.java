@@ -8,7 +8,6 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Pair;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.PsiElement;
-
 import de.marhali.easyi18n.DataStore;
 import de.marhali.easyi18n.InstanceManager;
 import de.marhali.easyi18n.assistance.OptionalAssistance;
@@ -17,7 +16,6 @@ import de.marhali.easyi18n.model.TranslationValue;
 import de.marhali.easyi18n.settings.ProjectSettings;
 import de.marhali.easyi18n.settings.ProjectSettingsService;
 import de.marhali.easyi18n.util.KeyPathConverter;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -27,12 +25,14 @@ import java.util.Set;
 
 /**
  * Language specific translation key folding with representative locale value.
+ *
  * @author marhali
  */
 abstract class AbstractFoldingBuilder extends FoldingBuilderEx implements OptionalAssistance {
     /**
      * Extract all relevant folding regions for the desired root element.
      * The implementation does not need to verify if the character literal is a valid translation.
+     *
      * @param root Root element
      * @return found regions
      */
@@ -40,6 +40,7 @@ abstract class AbstractFoldingBuilder extends FoldingBuilderEx implements Option
 
     /**
      * Extract the text from the given node.
+     *
      * @param node Node
      * @return extracted text or null if not applicable
      */
@@ -48,7 +49,7 @@ abstract class AbstractFoldingBuilder extends FoldingBuilderEx implements Option
     @Override
     public FoldingDescriptor @NotNull [] buildFoldRegions(@NotNull PsiElement root, @NotNull Document document, boolean quick) {
 
-        if(quick || !isAssistance(root.getProject())) {
+        if (quick || !isAssistance(root.getProject())) {
             return FoldingDescriptor.EMPTY_ARRAY;
         }
 
@@ -58,8 +59,8 @@ abstract class AbstractFoldingBuilder extends FoldingBuilderEx implements Option
         TranslationData data = InstanceManager.get(root.getProject()).store().getData();
         KeyPathConverter converter = new KeyPathConverter(settings);
 
-        for(Pair<String, PsiElement> region : extractRegions(root)) {
-            if(region.first == null || data.getTranslation(converter.fromString(region.first)) == null) {
+        for (Pair<String, PsiElement> region : extractRegions(root)) {
+            if (region.first == null || data.getTranslation(converter.fromString(region.first)) == null) {
                 continue;
             }
 
@@ -80,7 +81,7 @@ abstract class AbstractFoldingBuilder extends FoldingBuilderEx implements Option
     public @Nullable String getPlaceholderText(@NotNull ASTNode node) {
         String text = extractText(node);
 
-        if(text == null) {
+        if (text == null) {
             return null;
         }
 
@@ -89,7 +90,7 @@ abstract class AbstractFoldingBuilder extends FoldingBuilderEx implements Option
         KeyPathConverter converter = new KeyPathConverter(project);
         TranslationValue localeValues = store.getData().getTranslation(converter.fromString(text));
 
-        if(localeValues == null) {
+        if (localeValues == null) {
             return null;
         }
 

@@ -1,7 +1,6 @@
 package de.marhali.easyi18n.io.parser;
 
 import de.marhali.easyi18n.util.StringUtil;
-
 import org.apache.commons.text.StringEscapeUtils;
 
 import java.text.MessageFormat;
@@ -29,8 +28,8 @@ public abstract class ArrayMapper {
         StringBuilder builder = new StringBuilder(PREFIX);
 
         int i = 0;
-        while(elements.hasNext()) {
-            if(i > 0) {
+        while (elements.hasNext()) {
+            if (i > 0) {
                 builder.append(DELIMITER);
             }
 
@@ -49,7 +48,7 @@ public abstract class ArrayMapper {
     protected static void write(String concat, Consumer<String> writeElement) {
         concat = concat.substring(PREFIX.length(), concat.length() - SUFFIX.length());
 
-        for(String element : concat.split(SPLITERATOR_REGEX)) {
+        for (String element : concat.split(SPLITERATOR_REGEX)) {
             element = element.replace("\\" + DELIMITER, String.valueOf(DELIMITER));
             writeElement.accept(StringEscapeUtils.unescapeJava(element));
         }

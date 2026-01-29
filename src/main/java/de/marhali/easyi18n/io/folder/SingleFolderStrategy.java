@@ -1,12 +1,10 @@
 package de.marhali.easyi18n.io.folder;
 
 import com.intellij.openapi.vfs.VirtualFile;
-
 import de.marhali.easyi18n.io.parser.ParserStrategyType;
 import de.marhali.easyi18n.model.TranslationData;
 import de.marhali.easyi18n.model.TranslationFile;
 import de.marhali.easyi18n.settings.ProjectSettings;
-
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -46,7 +44,7 @@ public class SingleFolderStrategy extends FolderStrategy {
 
         List<TranslationFile> files = new ArrayList<>();
 
-        for (String locale : data.getLocales()) {
+        for (String locale : data.locales()) {
             VirtualFile vf = super.constructFile(localesPath,
                     locale + "." + type.getFileExtension());
 

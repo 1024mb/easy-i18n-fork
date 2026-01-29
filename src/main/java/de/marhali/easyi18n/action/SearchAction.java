@@ -6,7 +6,6 @@ import com.intellij.openapi.actionSystem.Presentation;
 import com.intellij.openapi.actionSystem.ex.CustomComponentAction;
 import com.intellij.ui.components.JBTextField;
 import com.intellij.util.ui.JBUI;
-
 import org.jdesktop.swingx.prompt.PromptSupport;
 import org.jetbrains.annotations.NotNull;
 
@@ -19,6 +18,7 @@ import java.util.function.Consumer;
 
 /**
  * Search translations by key action.
+ *
  * @author marhali
  */
 public class SearchAction extends AnAction implements CustomComponentAction {
@@ -32,7 +32,8 @@ public class SearchAction extends AnAction implements CustomComponentAction {
     }
 
     @Override
-    public void actionPerformed(@NotNull AnActionEvent e) {} // Should never be called
+    public void actionPerformed(@NotNull AnActionEvent e) {
+    } // Should never be called
 
     public void actionPerformed() {
         searchCallback.accept(textField == null ? "" : textField.getText());
@@ -57,7 +58,7 @@ public class SearchAction extends AnAction implements CustomComponentAction {
         return new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     e.consume();
                     actionPerformed();
                 }

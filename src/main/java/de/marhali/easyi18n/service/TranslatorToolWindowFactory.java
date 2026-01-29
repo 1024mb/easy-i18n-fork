@@ -7,12 +7,10 @@ import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowFactory;
 import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentFactory;
-
 import de.marhali.easyi18n.InstanceManager;
 import de.marhali.easyi18n.action.*;
 import de.marhali.easyi18n.tabs.TableView;
 import de.marhali.easyi18n.tabs.TreeView;
-
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -21,6 +19,7 @@ import java.util.ResourceBundle;
 
 /**
  * Tool window factory which will represent the entire ui for this plugin.
+ *
  * @author marhali
  */
 public class TranslatorToolWindowFactory implements ToolWindowFactory, DumbAware {

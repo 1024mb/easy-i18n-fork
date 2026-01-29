@@ -5,18 +5,19 @@ import de.marhali.easyi18n.io.parser.ParserStrategyType;
 import de.marhali.easyi18n.io.parser.properties.PropertiesArrayMapper;
 import de.marhali.easyi18n.io.parser.properties.PropertiesMapper;
 import de.marhali.easyi18n.io.parser.properties.SortableProperties;
-import de.marhali.easyi18n.model.TranslationData;
 import de.marhali.easyi18n.model.KeyPath;
-import de.marhali.easyi18n.settings.presets.NamingConvention;
+import de.marhali.easyi18n.model.TranslationData;
 import de.marhali.easyi18n.settings.ProjectSettings;
+import de.marhali.easyi18n.settings.presets.NamingConvention;
 import de.marhali.easyi18n.util.KeyPathConverter;
-
 import org.apache.commons.lang.StringEscapeUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.junit.Assert;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Unit tests for {@link PropertiesMapper}.
@@ -109,7 +110,7 @@ public class PropertiesMapperTest extends AbstractMapperTest {
         TranslationData input = new TranslationData(true);
         PropertiesMapper.read("en", output, input, converter(true));
 
-        Assert.assertTrue(input.getRootNode().getChildren().containsKey("nested"));
+        Assert.assertTrue(input.rootNode().getChildren().containsKey("nested"));
         Assert.assertEquals("test", input.getTranslation(new KeyPath("nested", "key", "sections")).get("en"));
     }
 

@@ -26,6 +26,7 @@ import java.util.ResourceBundle;
 
 /**
  * Easily create issues on the project repository if exceptions occur.
+ *
  * @author marhali
  */
 public class ErrorReportHandler extends ErrorReportSubmitter {
@@ -38,7 +39,7 @@ public class ErrorReportHandler extends ErrorReportSubmitter {
     public boolean submit(IdeaLoggingEvent @NotNull [] events, @Nullable String additionalInfo,
                           @NotNull Component parentComponent, @NotNull Consumer<? super SubmittedReportInfo> consumer) {
 
-        if(events.length == 0) {
+        if (events.length == 0) {
             return false;
         }
 
@@ -48,7 +49,7 @@ public class ErrorReportHandler extends ErrorReportSubmitter {
         DataContext context = mgr.getDataContext(parentComponent);
         Project project = CommonDataKeys.PROJECT.getData(context);
 
-        if(additionalInfo == null) {
+        if (additionalInfo == null) {
             additionalInfo = "/";
         }
 
@@ -68,7 +69,7 @@ public class ErrorReportHandler extends ErrorReportSubmitter {
         String url = "https://github.com/marhali/easy-i18n/issues/new?title="
                 + encodeParam(title) + "&labels=" + encodeParam(labels) + "&body=" + encodeParam(body);
 
-        if(url.length() > 8201) { // Consider github request url limit
+        if (url.length() > 8201) { // Consider github request url limit
             url = url.substring(0, 8201);
         }
 

@@ -10,11 +10,13 @@ import java.util.List;
  * Represents the absolute key path for a desired translation.
  * The key could be based one or many sections.
  * Classes implementing this structure need to take care on how to layer translations paths.
+ *
  * @author marhali
  */
 public class KeyPath extends ArrayList<String> {
 
-    public KeyPath() {}
+    public KeyPath() {
+    }
 
     public KeyPath(@Nullable String... path) {
         super.addAll(List.of(path));

@@ -2,9 +2,7 @@ package de.marhali.easyi18n;
 
 import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.project.Project;
-
 import de.marhali.easyi18n.model.action.TranslationUpdate;
-
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
@@ -12,6 +10,7 @@ import java.util.WeakHashMap;
 
 /**
  * Central singleton component for managing an easy-i18n instance for a specific project.
+ *
  * @author marhali
  */
 public class InstanceManager {
@@ -21,17 +20,6 @@ public class InstanceManager {
     private final DataStore store;
     private final DataBus bus;
     private final FilteredDataBus uiBus;
-
-    public static InstanceManager get(@NotNull Project project) {
-        InstanceManager instance = INSTANCES.get(project);
-
-        if(instance == null){
-            instance = new InstanceManager(project);
-            INSTANCES.put(project, instance);
-        }
-
-        return instance;
-    }
 
     private InstanceManager(@NotNull Project project) {
         this.store = new DataStore(project);
@@ -47,6 +35,17 @@ public class InstanceManager {
                 this.bus.propagate().onUpdateData(this.store.getData());
             });
         });
+    }
+
+    public static InstanceManager get(@NotNull Project project) {
+        InstanceManager instance = INSTANCES.get(project);
+
+        if (instance == null) {
+            instance = new InstanceManager(project);
+            INSTANCES.put(project, instance);
+        }
+
+        return instance;
     }
 
     public DataStore store() {
@@ -77,19 +76,19 @@ public class InstanceManager {
     }
 
     public void processUpdate(TranslationUpdate update) {
-        if(update.isDeletion() || update.isKeyChange()) { // Remove origin translation
+        if (update.isDeletion() || update.isKeyChange()) { // Remove origin translation
             this.store.getData().setTranslation(update.getOrigin().getKey(), null);
         }
 
-        if(!update.isDeletion()) { // Create or re-create translation with changed data
+        if (!update.isDeletion()) { // Create or re-create translation with changed data
             this.store.getData().setTranslation(update.getChange().getKey(), update.getChange().getValue());
         }
 
         this.store.saveToPersistenceLayer(success -> {
-            if(success) {
+            if (success) {
                 this.bus.propagate().onUpdateData(this.store.getData());
 
-                if(!update.isDeletion()) {
+                if (!update.isDeletion()) {
                     this.bus.propagate().onFocusKey(update.getChange().getKey());
                 } else {
                     this.bus.propagate().onFocusKey(update.getOrigin().getKey());

@@ -7,4 +7,5 @@ package de.marhali.easyi18n.model.bus;
  * @author marhali
  */
 public interface BusListener extends UpdateDataListener, FilterIncompleteListener,
-        FilterDuplicateListener, SearchQueryListener, FocusKeyListener {}
+        FilterDuplicateListener, SearchQueryListener, FocusKeyListener {
+}

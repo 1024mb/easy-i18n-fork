@@ -7,6 +7,7 @@ import org.jetbrains.kotlin.psi.KtLiteralStringTemplateEntry;
 
 /**
  * Kotlin specific completion contributor.
+ *
  * @author marhali
  */
 public class KtCompletionContributor extends CompletionContributor {
